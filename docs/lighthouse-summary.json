@@ -1,0 +1,28 @@
+{
+  "url": "http://127.0.0.1:3000/",
+  "mode": "mobile simulated throttling; local production server; refinement pass",
+  "categories": {
+    "performance": 98,
+    "accessibility": 100,
+    "best-practices": 100,
+    "seo": 100
+  },
+  "metrics": {
+    "first-contentful-paint": {
+      "value": 764.5473,
+      "display": "0.8\u00a0s"
+    },
+    "largest-contentful-paint": {
+      "value": 2311.5473,
+      "display": "2.3\u00a0s"
+    },
+    "cumulative-layout-shift": {
+      "value": 0,
+      "display": "0"
+    },
+    "total-blocking-time": {
+      "value": 93,
+      "display": "90\u00a0ms"
+    }
+  }
+}
