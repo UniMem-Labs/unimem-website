@@ -15,11 +15,11 @@ const geist = localFont({
 export const metadata: Metadata = {
   metadataBase: new URL(SITE),
   title: {
-    default: "UniMem — Evidence-based memory for AI agents",
+    default: "UniMem — The memory system for intelligent machines",
     template: "%s | UniMem",
   },
   description:
-    "Persistent agent memory with outcome measurement, governed change, and local-first control.",
+    "The complete memory system for AI agents and robots, with randomized evidence of which memories help and governed change.",
   applicationName: "UniMem",
   manifest: "/manifest.webmanifest",
   robots: { index: true, follow: true },

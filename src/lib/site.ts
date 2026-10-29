@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 export const SITE = "https://unimem.org";
 export const REPO = "https://github.com/varma61923/unimem";
-export const SOURCE = `${REPO}/blob/c9541a187b48093aa75d6cbb006eea007014efc5`;
+export const SOURCE = `${REPO}/blob/main`;
 export const CONTACT = "Pavan.Mudunuri@unimem.org";
 export function metadata(
   title: string,

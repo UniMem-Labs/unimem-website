@@ -33,7 +33,9 @@ export default async function Page({
     .split("/")
     .at(-1)!
     .split("-")
-    .map((word) => word[0].toUpperCase() + word.slice(1))
+    .map((word) =>
+      word === "ai" ? "AI" : word[0].toUpperCase() + word.slice(1),
+    )
     .join(" ");
   const readingMinutes = Math.max(
     1,
@@ -142,6 +144,33 @@ export default async function Page({
               </a>
               <Link href="/benchmarks" className="text-link">
                 See the benchmarks <Arrow />
+              </Link>
+            </div>
+          ) : p.path === "/platform" ? (
+            <div className="hero-actions">
+              <Link href="/developers#demo" className="button">
+                Run the 30-second demo <Arrow />
+              </Link>
+              <Link href="/benchmarks" className="text-link">
+                See the benchmarks <Arrow />
+              </Link>
+            </div>
+          ) : p.path === "/physical-ai" ? (
+            <div className="hero-actions">
+              <Link href="/contact?intent=pilot" className="button">
+                Talk about a robot pilot <Arrow />
+              </Link>
+              <a href={`${SOURCE}/docs/physical-ai.md`} className="text-link">
+                Read the integration guide <Arrow />
+              </a>
+            </div>
+          ) : p.path === "/vision" ? (
+            <div className="hero-actions">
+              <Link href="/investors" className="button">
+                Read the investor overview <Arrow />
+              </Link>
+              <Link href="/platform" className="text-link">
+                Explore the platform <Arrow />
               </Link>
             </div>
           ) : p.path === "/benchmarks" ? (

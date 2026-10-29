@@ -4,10 +4,76 @@ import { MemoryDemo } from "@/components/memory-demo";
 import { CodeExample } from "@/components/code-example";
 import { metadata as meta, REPO, SITE } from "@/lib/site";
 export const metadata = meta(
-  "Evidence-based memory for AI agents",
-  "UniMem gives agents persistent memory and measures which memories improve future work. Withdraw harmful guidance, review changes, and keep an evidence trail. Open source, local first.",
+  "The memory system for intelligent machines",
+  "UniMem is the complete memory system for AI agents and robots: lessons, time-aware facts, knowledge graphs and conversations, with randomized evidence of which memories improve outcomes. Open source, local first.",
   "/",
 );
+const memoryKinds = [
+  [
+    "Lessons",
+    "Reusable guidance distilled from agent traces, admitted through review receipts bound to exact content.",
+  ],
+  [
+    "Time-aware facts",
+    "Propositions with valid time and record time. Ask what was true then, and what the store believed then.",
+  ],
+  [
+    "Knowledge graph",
+    "Typed entities and relations with validity windows, entity resolution, communities and multi-hop walks.",
+  ],
+  [
+    "Conversations",
+    "Per-space conversation memory with summaries, profiles and time-aware recall across long histories.",
+  ],
+  [
+    "Memory blocks",
+    "Character-limited core memory with revisions and an audit log, always in the agent’s context.",
+  ],
+  [
+    "Procedures",
+    "Recorded workflows an agent can replay, plus curated knowledge pages and incident narratives.",
+  ],
+];
+const demoOutput = `$ unimem demo
+
+1/3 REMEMBER  facts that know when they were true
+    Q: How are refunds issued?
+    today            → v2 payments API
+    as of 2026-01-02 → v1 refunds endpoint
+
+2/3 MEASURE   1,000 tickets; each memory withheld on half
+    integrity audit: SOUND
+    memory               planted  measured  verdict
+    verify-owner            +20%      +20%  HELPS
+    retry-429                +0%       +1%  NO EFFECT
+    legacy-refund-api       -20%      -23%  HURTS
+
+3/3 GOVERN    the evidence changes what the agent sees
+    withdrawn   legacy-refund-api
+    graduated   verify-owner
+    under test  retry-429`;
+const horizon = [
+  [
+    "Coding agents",
+    "Project decisions and conventions carried across sessions, with stale guidance caught before it repeats.",
+    "/use-cases/coding-agents",
+  ],
+  [
+    "Enterprise agents",
+    "Support, operations and workflow agents with scoped memory, review and an audit trail.",
+    "/use-cases/enterprise-agents",
+  ],
+  [
+    "Multi-agent teams",
+    "Shared memory with isolation, stale-read detection and measured writer contributions.",
+    "/use-cases/multi-agent-systems",
+  ],
+  [
+    "Robots and fleets",
+    "Planner context, in-loop working memory, site memory and a shield on memory-derived actions.",
+    "/physical-ai",
+  ],
+];
 const loop = [
   [
     "Recall what matters.",
@@ -37,7 +103,7 @@ export default function Home() {
                 name: "UniMem",
                 url: SITE,
                 description:
-                  "Evidence-based memory infrastructure for AI agents.",
+                  "The memory system for AI agents and robots, with randomized evidence of which memories help.",
               },
               {
                 "@type": "WebSite",
@@ -52,7 +118,7 @@ export default function Home() {
                 operatingSystem: "Python 3.10+",
                 url: `${SITE}/product`,
                 description:
-                  "Local-first agent memory with randomized outcome measurement and governed change.",
+                  "Complete, local-first memory for AI agents and robots with randomized outcome measurement and governed change.",
               },
             ],
           }),
@@ -61,29 +127,30 @@ export default function Home() {
       <section className="hero container">
         <div className="hero-topline">
           <span className="eyebrow">
-            <i className="status-dot" /> EVIDENCE-BASED AGENT MEMORY
+            <i className="status-dot" /> MEMORY FOR AGENTS AND ROBOTS
           </span>
           <span className="hero-index">01 / REMEMBER WITH REASON</span>
         </div>
         <div className="hero-grid">
           <div className="hero-copy">
             <h1>
-              <span className="hero-line">Memory should</span>{" "}
-              <span className="hero-line">earn your</span>{" "}
+              <span className="hero-line">Memory your</span>{" "}
+              <span className="hero-line">machines can</span>{" "}
               <span className="hero-line">
-                agent’s <span className="accent-word">trust.</span>
+                <span className="accent-word">trust.</span>
               </span>
             </h1>
             <p>
-              Give agents persistent memory. Measure what helps, and govern what
-              stays in use.
+              A complete memory system for AI agents and robots that measures
+              which memories improve outcomes, withdraws the ones that hurt, and
+              keeps every change reviewable.
             </p>
             <div className="hero-actions">
-              <Link href="/developers" className="button">
-                Try UniMem <Arrow />
+              <Link href="/developers#demo" className="button">
+                Run the 30-second demo <Arrow />
               </Link>
-              <Link href="/product" className="text-link">
-                Explore the product <Arrow />
+              <Link href="/platform" className="text-link">
+                Explore the platform <Arrow />
               </Link>
             </div>
             <div className="hero-footnote">
@@ -91,7 +158,7 @@ export default function Home() {
               <i />
               <span>Open source</span>
               <i />
-              <span>MCP · HTTP · Python</span>
+              <span>MCP · HTTP · Python · ROS 2</span>
             </div>
           </div>
           <div className="hero-visual">
@@ -103,7 +170,7 @@ export default function Home() {
           </div>
         </div>
         <div className="hero-bottom">
-          <span>FOR AGENTS THAT DO MORE THAN ONE TASK.</span>
+          <span>FOR MACHINES THAT LEARN FROM WHAT THEY DO.</span>
           <a href="#why-memory" className="scroll-link">
             A better memory loop <span>↓</span>
           </a>
@@ -163,9 +230,48 @@ export default function Home() {
           </dl>
         </div>
       </section>
+      <section className="container section platform-section" id="platform">
+        <div className="section-rail">
+          <span className="eyebrow">01 / A COMPLETE MEMORY SYSTEM</span>
+          <span className="rail-line" />
+        </div>
+        <div className="section-heading">
+          <h2>
+            One memory system.
+            <br />
+            Every kind of experience.
+          </h2>
+          <p>
+            Not a vector index with a name.
+            <br />
+            The full memory an agent needs, in one store.
+          </p>
+        </div>
+        <div className="memory-grid">
+          {memoryKinds.map(([title, text], i) => (
+            <article key={title}>
+              <span className="eyebrow">0{i + 1}</span>
+              <h3>{title}</h3>
+              <p>{text}</p>
+            </article>
+          ))}
+        </div>
+        <div className="retrieval-strip">
+          <span className="eyebrow">ONE RECALL, ONE TOKEN BUDGET</span>
+          <p>
+            Hybrid lexical and dense retrieval, ten named retrievers including
+            multi-hop graph walks and question decomposition, local or hosted
+            rerankers, and the same scope, time and authority checks on every
+            path.
+          </p>
+          <Link href="/platform" className="text-link">
+            Inside the platform <Arrow />
+          </Link>
+        </div>
+      </section>
       <section className="container problem-section section" id="why-memory">
         <div className="section-rail">
-          <span className="eyebrow">01 / THE MEMORY PROBLEM</span>
+          <span className="eyebrow">02 / THE MEMORY PROBLEM</span>
           <span className="rail-line" />
         </div>
         <div className="problem-grid">
@@ -211,7 +317,7 @@ export default function Home() {
       <section className="how-section">
         <div className="container section">
           <div className="section-rail">
-            <span className="eyebrow">02 / HOW IT WORKS</span>
+            <span className="eyebrow">03 / HOW IT WORKS</span>
             <span className="eyebrow">EXPERIENCE, WITH A FEEDBACK LOOP.</span>
           </div>
           <div className="how-grid">
@@ -267,9 +373,42 @@ export default function Home() {
           </div>
         </div>
       </section>
+      <section className="container section demo-section" id="demo">
+        <div className="demo-copy">
+          <span className="eyebrow">04 / SEE IT IN 30 SECONDS</span>
+          <h2>
+            Remember.
+            <br />
+            Measure.
+            <br />
+            <span className="muted">Govern.</span>
+          </h2>
+          <p className="section-intro">
+            One command runs the whole loop on your machine, offline, with no
+            LLM and no API key. A simulated agent has planted effects, so you
+            can check what UniMem measures against the ground truth.
+          </p>
+          <Link href="/developers#demo" className="text-link">
+            Run it yourself <Arrow />
+          </Link>
+        </div>
+        <figure className="terminal">
+          <div className="code-bar">
+            <span>TERMINAL · REAL OUTPUT, ABRIDGED</span>
+            <span>unimem demo</span>
+          </div>
+          <pre tabIndex={0} aria-label="Output of the unimem demo command">
+            <code>{demoOutput}</code>
+          </pre>
+          <figcaption>
+            Simulated agent and outcomes. Real store, randomization, integrity
+            audit, analysis and withdrawal.
+          </figcaption>
+        </figure>
+      </section>
       <section className="container section developer-section">
         <div className="developer-copy">
-          <span className="eyebrow">03 / MADE TO BE USED</span>
+          <span className="eyebrow">05 / MADE TO BE USED</span>
           <h2>
             Your agent.
             <br />
@@ -292,50 +431,28 @@ export default function Home() {
       </section>
       <section className="container section usecases-section">
         <div className="section-rail">
-          <span className="eyebrow">04 / LONGER-LIVED AGENTS</span>
+          <span className="eyebrow">06 / FROM AGENTS TO ROBOTS</span>
           <span className="rail-line" />
         </div>
         <div className="section-heading">
           <h2>
-            Context for today.
+            Every machine that acts
             <br />
-            Experience for what’s next.
+            will need a memory.
           </h2>
           <p>
-            For teams whose agents return to the work,
+            One memory model and one evidence engine,
             <br />
-            and need more than a fresh start.
+            from a coding agent to a robot fleet.
           </p>
         </div>
         <div className="usecase-list">
-          {[
-            [
-              "01",
-              "Coding agents",
-              "Carry project decisions across sessions. Review lessons before they become recurring guidance.",
-              "/use-cases/coding-agents",
-              "{ }",
-            ],
-            [
-              "02",
-              "Multi-agent systems",
-              "Share scoped context. Detect stale point reads before they turn into another agent’s write.",
-              "/use-cases/multi-agent-systems",
-              "↗↙",
-            ],
-            [
-              "03",
-              "Enterprise workflows",
-              "Keep deployment, access, review, and memory change under your team’s control.",
-              "/use-cases/enterprise-agents",
-              "⊞",
-            ],
-          ].map(([n, title, text, href, symbol]) => (
+          {horizon.map(([title, text, href], i) => (
             <Link href={href} key={title} className="usecase-row">
               <span className="usecase-symbol" aria-hidden="true">
-                {symbol}
+                {["{ }", "⊞", "↗↙", "◎"][i]}
               </span>
-              <span className="eyebrow">{n}</span>
+              <span className="eyebrow">0{i + 1}</span>
               <h3>{title}</h3>
               <p>{text}</p>
               <Arrow diagonal />
@@ -347,7 +464,7 @@ export default function Home() {
         <div className="container section">
           <div className="section-heading">
             <div>
-              <span className="eyebrow">05 / CONTROL IS PART OF MEMORY</span>
+              <span className="eyebrow">07 / CONTROL IS PART OF MEMORY</span>
               <h2>
                 A memory layer.
                 <br />

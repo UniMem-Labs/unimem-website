@@ -109,7 +109,7 @@ test("mobile navigation, demo, code switcher, copy, keyboard and reduced motion"
     await page.getByRole("button", { name: new RegExp(stage) }).click();
   await expect(page.getByText("WITHDRAWN", { exact: true })).toBeVisible();
   await page.getByRole("button", { name: "Python", exact: true }).click();
-  await expect(page.locator("pre")).toContainText("CausalMemory");
+  await expect(page.locator(".code-example pre")).toContainText("CausalMemory");
   await page.getByRole("button", { name: "Copy Python / integration" }).click();
   expect(await page.evaluate(() => navigator.clipboard.readText())).toContain(
     "CausalMemory",

@@ -1,5 +1,5 @@
 import { ImageResponse } from "next/og";
-export const alt = "UniMem — Memory should earn your agent’s trust.";
+export const alt = "UniMem — Memory your machines can trust.";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 export default function Image() {
@@ -27,7 +27,7 @@ export default function Image() {
       >
         <span style={{ fontSize: 30, fontWeight: 700 }}>UniMem.</span>
         <span style={{ fontSize: 14, letterSpacing: 3 }}>
-          EXPERIENCE → EVIDENCE
+          AGENTS · ROBOTS · EVIDENCE
         </span>
       </div>
       <div style={{ display: "flex", flex: 1, alignItems: "center", gap: 55 }}>
@@ -40,9 +40,9 @@ export default function Image() {
             lineHeight: 1.07,
           }}
         >
-          <span>Memory should earn</span>
+          <span>Memory your machines</span>
           <span>
-            your agent’s{" "}
+            can{" "}
             <span style={{ background: "#d6f78b", marginLeft: 12 }}>
               trust.
             </span>
@@ -58,7 +58,7 @@ export default function Image() {
             paddingLeft: 25,
           }}
         >
-          {["RECALL", "OBSERVE", "EVALUATE", "GOVERN"].map((s, i) => (
+          {["REMEMBER", "RECALL", "MEASURE", "GOVERN"].map((s, i) => (
             <div
               key={s}
               style={{
@@ -83,7 +83,7 @@ export default function Image() {
           fontSize: 17,
         }}
       >
-        <span>Evidence-based memory for AI agents.</span>
+        <span>The memory system for intelligent machines.</span>
         <span>unimem.org</span>
       </div>
     </div>,

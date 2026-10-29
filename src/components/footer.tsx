@@ -10,13 +10,14 @@ export function Footer() {
             <Mark />
             UniMem.
           </Link>
-          <p>Experience, with evidence.</p>
+          <p>Memory your machines can trust.</p>
           <span className="eyebrow">UNIFIED MEMORY</span>
         </div>
         <div className="footer-links">
           <div>
             <span>Build</span>
-            <Link href="/product">Product</Link>
+            <Link href="/platform">Platform</Link>
+            <Link href="/product">Memory loop</Link>
             <Link href="/developers">Developers</Link>
             <Link href="/docs">Documentation</Link>
             <Link href="/benchmarks">Benchmarks</Link>
@@ -27,6 +28,7 @@ export function Footer() {
           <div>
             <span>Explore</span>
             <Link href="/enterprise">Enterprise</Link>
+            <Link href="/physical-ai">Physical AI</Link>
             <Link href="/use-cases/coding-agents">Coding agents</Link>
             <Link href="/use-cases/multi-agent-systems">
               Multi-agent systems
@@ -36,6 +38,7 @@ export function Footer() {
           <div>
             <span>UniMem</span>
             <Link href="/about">About</Link>
+            <Link href="/vision">Vision</Link>
             <Link href="/investors">Investors</Link>
             <Link href="/contact">Run a pilot</Link>
             <Link href="/privacy">Privacy</Link>

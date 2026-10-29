@@ -89,6 +89,17 @@ export const pages: ContentPage[] = [
     lead: "One local store. A real recall. Then a measured loop around the agent you already run.",
     sections: [
       {
+        id: "demo",
+        title: "00 / See the whole loop in 30 seconds.",
+        paragraphs: [
+          "Before wiring anything, run the built-in demo. It creates a temporary store, writes facts with validity windows and recalls them at two points in time, runs 1,000 simulated support tickets through a randomized holdout, audits the experiment, and lets the evidence withdraw a harmful memory and graduate a helpful one.",
+          "The agent and its outcomes are simulated with planted effects, so the measured effects can be checked against ground truth. The store, randomization, integrity audit, analysis and withdrawal are the real product. It needs no LLM, no API key and no network.",
+        ],
+        code: "git clone https://github.com/varma61923/unimem.git\ncd unimem\npython -m venv .venv && source .venv/bin/activate\npython -m pip install -e .\n\nunimem demo                 # add --keep ./demo-store to inspect it afterwards",
+        codeLabel: "Terminal · macOS / Linux",
+        source: ["Demo command", "README.md#see-the-whole-loop-in-30-seconds"],
+      },
+      {
         id: "quickstart",
         title: "01 / Install from the product source.",
         paragraphs: [
@@ -595,6 +606,197 @@ export const pages: ContentPage[] = [
     related: ["/product", "/enterprise", "/developers"],
   },
   {
+    path: "/platform",
+    eyebrow: "PLATFORM / ONE MEMORY SYSTEM, END TO END",
+    title: "Everything an agent remembers, in one governed system.",
+    description:
+      "The UniMem platform: lessons, bitemporal facts, knowledge graph, conversations, memory blocks and procedures; hybrid multi-hop retrieval; randomized evidence; governance; MCP, HTTP, Python and ROS 2 interfaces.",
+    lead: "UniMem is not a vector index with a name. It is the complete memory an agent or robot needs: what to remember, how to recall it, whether it helps, and who may change it.",
+    sections: [
+      {
+        id: "memory",
+        title: "A memory model for every kind of experience.",
+        paragraphs: [
+          "Different experience needs different structure. UniMem keeps each kind in a form suited to it, in one store, under one set of scope, time and authority rules.",
+        ],
+        bullets: [
+          "Lessons: reusable guidance distilled from traces, activated only through review receipts bound to their exact content, and durably revocable.",
+          "Atomic facts: propositions with valid time and record time, so you can ask what was true then and what the store believed then. Contradictions are detected at write time and near-duplicates consolidated.",
+          "Knowledge graph: typed nodes and edges with validity windows, entity resolution, communities, and a code-structure graph for Python and TypeScript.",
+          "Conversations: per-space memory with summaries, profiles and time-aware recall.",
+          "Memory blocks: character-limited core memory with revisions and an audit log.",
+          "Procedural memory, knowledge pages and sagas: replayable workflows, curated versioned pages, and ordered narratives of incidents and migrations.",
+          "Forgetting: TTLs, evidence decay, invalidation, and erasure of a subject’s local history.",
+        ],
+        source: ["Memory model", "README.md#whats-inside"],
+      },
+      {
+        id: "retrieval",
+        title: "Recall that reaches the right evidence.",
+        paragraphs: [
+          "Recall fuses lessons, facts, graph relations and conversations under one token budget. Hybrid lexical retrieval (BM25, Unicode and CJK aware) and dense retrieval run with local or hosted embedders; local cross-encoders, hosted rerankers or an LLM listwise reranker can refine the ranking, and a failed reranker keeps the original order.",
+          "Ten named retrievers cover different questions: hybrid, decomposition, graph completion, natural-language query, planned, multi-round, multi-hop, personalized PageRank, expanded and HyDE. Multi-hop reasoning walks the fact and entity graph with explicit evidence paths.",
+          "Every retriever applies the same checks. A fact the caller cannot see is never used, not even as an intermediate hop.",
+        ],
+        note: "On LoCoMo, the served gateway delivers the gold evidence for 95.8 percent of 1,540 questions at 152 ms p50 on CPU. See the benchmarks page for baselines and caveats.",
+        source: ["Retrieval", "README.md#retrieval"],
+      },
+      {
+        id: "evidence",
+        title: "An evidence engine built into memory.",
+        paragraphs: [
+          "Each eligible memory is shown or withheld on each task by a deterministic hash, so the split is random, reproducible and stable under retries. Outcomes in the two arms give a causal estimate per memory, with confidence sequences that remain valid however often you look.",
+          "An integrity audit runs before any effect is shown: differential attrition, sample-ratio mismatch, reshuffled randomization, scorer drift, mid-run edits and censoring. A compromised run is reported as compromised.",
+          "The evidence acts. Harmful memories can be withdrawn, proven ones graduated, and a contextual causal gate learns where each memory helps, publishing its allocation as hash-chained schedules.",
+        ],
+        source: [
+          "Measurement and the causal gate",
+          "README.md#prove-that-memory-helps",
+        ],
+      },
+      {
+        id: "governance",
+        title: "Governance and security at the record level.",
+        paragraphs: [
+          "Tenant scopes, write-time origin binding and visibility rules apply to every record. Lesson admission uses review receipts and HMAC-authenticated curated records designed against memory-poisoning attacks. Screening covers secrets, PII and prompt injection.",
+          "Change control preregisters candidate and incumbent policies before outcomes are observed; certification needs canonical trial records and a passing audit; rollback revokes the certificate. Signed Merkle transparency logs, lineage and subject-key erasure make history inspectable.",
+          "The self-hosted Hub adds OIDC single sign-on, SCIM 2.0 provisioning, role-based access, audit export, rate limiting, retention policies and envelope encryption with customer-held keys.",
+        ],
+        source: ["Guarantees and assumptions", "docs/guarantees.md"],
+      },
+      {
+        id: "interfaces",
+        title: "Meet every agent and robot where it runs.",
+        bullets: [
+          "MCP server with 60+ tools over stdio, SSE or streamable HTTP.",
+          "One-command installs for Claude Code, Cursor, Windsurf, Codex, Copilot, Gemini, Devin and OpenCode.",
+          "Native middleware for LangGraph, OpenAI Agents SDK, Pydantic AI, Google ADK and Microsoft Agent Framework, plus tool factories for LangChain, CrewAI, LlamaIndex, AutoGen and Strands.",
+          "HTTP gateway with a published OpenAPI contract, and TypeScript, Go, Rust and JVM clients.",
+          "A ROS 2 bridge and robot SDK for planner context, outcomes and action shields.",
+        ],
+        paragraphs: [
+          "Adapters for existing memory stores mean the evidence engine can measure memories that live elsewhere, as long as they have stable identities.",
+        ],
+        source: ["Connect your agent", "README.md#connect-your-agent"],
+      },
+      {
+        id: "deploy",
+        title: "Local first. Scales to an organization.",
+        paragraphs: [
+          "The core is pure Python with one runtime dependency, runs offline and needs no LLM. JSONL and Markdown are canonical, with SQLite in WAL mode for facts. PostgreSQL with pgvector, LanceDB, Neo4j and FalkorDB are optional backends; the graph databases mirror an authoritative local graph.",
+          "Docker, Helm, Kubernetes and Terraform assets ship with the source. The project is pre-1.0: the local store, retrieval, MCP server, gateway and holdout experiment are marked stable and covered by about 8,000 tests in CI; newer areas are labeled in the status table.",
+        ],
+        source: ["Project status", "README.md#project-status"],
+      },
+    ],
+    related: ["/benchmarks", "/developers", "/physical-ai"],
+    cta: "See the whole loop on your machine.",
+  },
+  {
+    path: "/physical-ai",
+    eyebrow: "PHYSICAL AI / MEMORY FOR ROBOTS AND FLEETS",
+    title: "Memory a robot can be trusted to act on.",
+    description:
+      "UniMem for physical AI: planner context and durable outcomes for robots, in-loop working memory, a bounded STL shield on memory-derived actions, collective site memory and living safety cases.",
+    lead: "Robots that learn from deployment need what agents need, under harder constraints: fast recall, durable outcomes over bad networks, and a gate between remembered experience and physical action.",
+    sections: [
+      {
+        id: "bridge",
+        title: "Planner context in, outcomes out.",
+        paragraphs: [
+          "A robot bridge labels each episode by embodiment, site and skill, asks the gateway for context, and reports the outcome. If the network drops, a signed durable outcome queue survives restarts and retries with the same occasion, and conflicting final outcomes are refused.",
+          "Because outcomes flow back, the same randomized evidence that measures an agent’s memories measures a robot’s: which recovery hints, site notes and skill lessons actually improve success for this embodiment at this site.",
+        ],
+        code: 'from unimem.robotics.bridge import HTTPGateway, RobotBridge\nfrom unimem.robotics.edge import OutcomeQueue\n\nrobot = RobotBridge(\n    HTTPGateway("http://127.0.0.1:8787", token),\n    embodiment="parallel-jaw", site="depot", skill="grasp", robot="robot7",\n    outcome_queue=OutcomeQueue("/var/lib/unimem-edge"),\n)\ncontext = robot.start("episode-42", "Recover the dropped object")\nrobot.finish("episode-42", succeeded=True)',
+        codeLabel: "Python · robot bridge",
+        source: ["Physical-AI integration", "docs/physical-ai.md"],
+      },
+      {
+        id: "working-memory",
+        title: "Working memory inside the control loop.",
+        paragraphs: [
+          "In-process working memory holds bounded vectors and keyframe metadata with local cosine ranking and a 5 ms default budget. It returns the best result found so far, marks overruns, and makes no network or persistence calls in the retrieval path.",
+          "Safety keyframes stay protected under eviction. At episode end only predictive keyframes are consolidated into long-term memory, with lineage and an append-only audit record.",
+        ],
+        note: "5 ms is a design target with a separate wall-clock benchmark gate. Integrators must benchmark their own hardware and vector dimensions.",
+        source: ["Robot working memory", "docs/robot-working-memory.md"],
+      },
+      {
+        id: "shield",
+        title: "A shield between memory and motion.",
+        paragraphs: [
+          "Every proposed memory-derived action can be checked against a bounded Signal Temporal Logic specification registered to the memory that suggested it. Missing memory, missing or out-of-order telemetry, and negative robustness hold the action. The bridge fails closed when no shield or no recalled memory is present.",
+          "The shield never sends motor commands. It complements, and never replaces, the robot’s safety-rated controller, emergency stop and risk assessment.",
+        ],
+        source: ["Memory-to-action shield", "docs/robot-shield.md"],
+      },
+      {
+        id: "fleet",
+        title: "What one robot learns, the site can know.",
+        paragraphs: [
+          "Collective site memory ingests a VDA 5050 subset and an Open-RMF adapter boundary into vendor-neutral, bitemporal site events. Scene graphs keep sensor source, event time and record time; conflicting observations stay visible instead of being silently merged.",
+          "A signed mesh lets robots share memory peer to peer. Conflicting concurrent values become explicit contradictions, safety additions cannot be removed, and forged or revoked peers are rejected. Signed edge updates carry protected hazards and proven facts with Merkle consistency proofs.",
+        ],
+        source: ["Collective site memory", "docs/site-memory.md"],
+      },
+      {
+        id: "safety-case",
+        title: "Living safety cases from real evidence.",
+        paragraphs: [
+          "A digest-bound claim and evidence graph tracks which safety claims rest on which memories and outcomes, flags evidence that has gone stale, and mines reproducible scenarios, so a safety case can change as the fleet learns rather than drift silently out of date.",
+          "These are engineering aids with stated limits. They are not certification, and robot motion and routing stay under the fleet’s certified control stack.",
+        ],
+        source: ["Living safety cases", "docs/safety-case.md"],
+      },
+    ],
+    related: ["/platform", "/vision", "/contact"],
+    cta: "Bring one robot workflow.",
+  },
+  {
+    path: "/vision",
+    eyebrow: "VISION / WHY UNIMEM EXISTS",
+    title: "Experience is the next dataset.",
+    description:
+      "Why every agent and robot will need a governed memory, why that memory must prove it helps, and what UniMem is building toward.",
+    lead: "Models are trained once. Machines that act in the world learn every day. Whoever governs what they keep from that experience holds the most important record in AI.",
+    sections: [
+      {
+        id: "shift",
+        title: "From trained once to learning in deployment.",
+        paragraphs: [
+          "A model’s weights capture what was known when it was trained. An agent fixing a codebase, answering a customer or picking up a part learns things no training set contained: this repository’s conventions, this customer’s history, this gripper’s quirks at this site.",
+          "That experience is valuable precisely because it is specific. It is also dangerous for the same reason. It goes stale, it can be wrong, and it can be planted. A machine that remembers more without knowing what deserves to be remembered just repeats its mistakes for longer.",
+        ],
+      },
+      {
+        id: "record",
+        title: "Memory becomes the system of record.",
+        paragraphs: [
+          "Every application that keeps state needs a database. Every machine that learns from what it does will need a memory, and that memory will hold the most consequential data an organization has about its AI: what its agents and robots believe, where it came from, who approved it, and what happened when it was used.",
+          "That is why memory cannot be a cache. It needs time, provenance, scope, review, erasure and an audit trail. UniMem was built that way from the first record.",
+        ],
+      },
+      {
+        id: "evidence",
+        title: "Memory must prove that it helps.",
+        paragraphs: [
+          "Retrieval answers whether a memory is relevant. It cannot answer whether using it made the outcome better. That is a causal question, and the only honest way to answer it is to compare outcomes with and without the memory on comparable tasks.",
+          "UniMem runs that comparison continuously, for every memory, on live work, and refuses to report a result from a broken experiment. Over time, evidence about which kinds of memory help in which contexts becomes the asset: it tells a new deployment what to trust before it has learned anything itself.",
+        ],
+      },
+      {
+        id: "horizon",
+        title: "One memory for every intelligent machine.",
+        paragraphs: [
+          "The same memory model and evidence engine already extends beyond memories: to skills, to optimizer edits, to the writers that create memories, and to robot fleets sharing what each robot learns. The aim is a single, governed layer between experience and action for any machine that learns from what it does.",
+          "We are early. UniMem has not launched publicly and has no revenue. The product is real, open source and documented with its limits, because the company that asks machines to earn trust has to earn it first.",
+        ],
+      },
+    ],
+    related: ["/investors", "/platform", "/physical-ai"],
+    cta: "Build the memory layer with us.",
+  },
+  {
     path: "/benchmarks",
     eyebrow: "BENCHMARKS / MEASURED, WITH THE CAVEATS",
     title: "Show the numbers. Show the limits.",
@@ -699,18 +901,18 @@ export const pages: ContentPage[] = [
   {
     path: "/investors",
     eyebrow: "INVESTORS / THESIS, STATUS, AND RISKS",
-    title: "The referee for agent memory.",
+    title: "The memory system for intelligent machines.",
     description:
       "UniMem’s investor overview: the thesis, why now, what exists today, the business model, honest pre-launch status, risks, and how to start a conversation.",
-    lead: "Agents are getting memory. Nobody can yet say which memories help. We are building the layer that can, and we would rather show you the evidence and the gaps than a deck of adjectives.",
+    lead: "Every agent and robot that learns from its work will need a memory. UniMem is a complete memory system that also proves which memories help. We would rather show you the evidence and the gaps than a deck of adjectives.",
     sections: [
       {
         id: "thesis",
-        title: "Memory is becoming infrastructure. Trust is the missing layer.",
+        title: "Memory is becoming infrastructure. Trust decides who owns it.",
         paragraphs: [
-          "Agents are moving from single sessions to persistent work. Persistence solves forgetting and gives mistakes a longer life: a stale convention, a bad lesson or a poisoned memory is delivered with confidence to every future task.",
-          "In our read of the category, memory products compete on storage and retrieval quality. Whether a particular memory caused a better outcome is a separate, causal question, and it is the one UniMem is built around. Each eligible memory is randomly withheld from a small share of tasks, outcomes are compared with integrity checks, harmful memories can be withdrawn, and changes are reviewed, promoted or rolled back.",
-          "The category is real and funded: several memory-layer companies have raised seed and Series A rounds. We are not asking you to believe agents need memory. We are making a narrower claim: memory that cannot be audited will not be allowed to touch consequential work.",
+          "Agents are moving from single sessions to persistent work, and robots are starting to learn in deployment. Every one of them will need memory, the way every application needs a database. Persistence solves forgetting and gives mistakes a longer life: a stale convention, a bad lesson or a poisoned memory is delivered with confidence to every future task.",
+          "UniMem is a complete memory system: lessons, bitemporal facts, a temporal knowledge graph, conversations, core-memory blocks and procedures, with hybrid and multi-hop retrieval that delivers the gold evidence for 95.8 percent of LoCoMo questions at 152 ms. Built into it is what, in our read of the category, memory products do not ship: a randomized evidence engine that measures whether each memory improved outcomes, then withdraws harmful ones and graduates proven ones.",
+          "The category is real and funded: several memory-layer companies have raised seed and Series A rounds. We are not asking you to believe machines need memory. Our claim is that memory which cannot prove it helps, and cannot be audited, will not be allowed to touch consequential work, and that the memory which can will become the system of record.",
         ],
       },
       {
@@ -726,7 +928,8 @@ export const pages: ContentPage[] = [
         title: "What exists today.",
         paragraphs: [
           "Per the project README and repository: a local-first Python core with one runtime dependency, a CLI, an MCP server with more than 60 tools, an HTTP gateway, framework middleware and one-command installs for coding agents, and a multi-tenant Hub with SSO, SCIM, role-based access, audit export and envelope encryption. CI runs about 8,000 tests and the Hub is tested against real PostgreSQL.",
-          "The measured retrieval and answer-accuracy results are on the benchmarks page, with their caveats. The randomized measurement, integrity audit, change control and evidence-proof machinery are implemented and documented with their assumptions.",
+          "The measured retrieval and answer-accuracy results are on the benchmarks page, with their caveats. The randomized measurement, integrity audit, change control and evidence-proof machinery are implemented and documented with their assumptions. A physical-AI layer (robot bridge, in-loop working memory, action shield, site memory) extends the same model to robots.",
+          "Anyone can verify the core loop in 30 seconds: `unimem demo` runs remember, measure and govern offline, against a simulated agent with planted effects, and shows the measured effects next to the ground truth.",
         ],
         bullets: [
           "Source is public under AGPL-3.0-only; the product is pre-1.0 and says so.",
@@ -768,7 +971,7 @@ export const pages: ContentPage[] = [
         ],
       },
     ],
-    related: ["/benchmarks", "/product", "/about"],
+    related: ["/vision", "/benchmarks", "/platform"],
     cta: "Tell us what you would need to see.",
   },
   {
@@ -777,7 +980,7 @@ export const pages: ContentPage[] = [
     title: "Experience should have a future.",
     description:
       "UniMem’s mission: give long-lived AI agents persistent, reviewable memory connected to evidence from future work.",
-    lead: "We are building memory infrastructure for agents that return to the work—and need a way to learn what deserves to carry forward.",
+    lead: "We are building the memory system for agents and robots that return to the work—and need a way to learn what deserves to carry forward.",
     sections: [
       {
         id: "conviction",

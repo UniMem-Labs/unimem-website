@@ -4,11 +4,11 @@ import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { Arrow, Mark } from "./icons";
 const links = [
-  ["Product", "/product"],
+  ["Platform", "/platform"],
   ["Developers", "/developers"],
   ["Enterprise", "/enterprise"],
+  ["Physical AI", "/physical-ai"],
   ["Benchmarks", "/benchmarks"],
-  ["Learn", "/learn"],
 ] as const;
 export function Nav() {
   const [open, setOpen] = useState(false);
@@ -44,7 +44,8 @@ export function Nav() {
     return (
       path === href ||
       path.startsWith(href + "/") ||
-      (href === "/product" && path.startsWith("/use-cases/"))
+      (href === "/platform" &&
+        (path === "/product" || path.startsWith("/use-cases/")))
     );
   }
   return (
