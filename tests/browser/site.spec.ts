@@ -163,6 +163,16 @@ test("robots, sitemap, share image, manifest, security headers and 404", async (
   const home = await request.get("/");
   expect(home.headers()["x-frame-options"]).toBe("DENY");
   expect(home.headers()["x-content-type-options"]).toBe("nosniff");
+  expect(home.headers()["cross-origin-opener-policy"]).toBe("same-origin");
+  expect(home.headers()["content-security-policy"]).toContain(
+    "frame-ancestors 'none'",
+  );
+  const securityTxt = await request.get("/.well-known/security.txt");
+  expect(securityTxt.status()).toBe(200);
+  const policy = await securityTxt.text();
+  expect(policy).toContain("Contact: mailto:");
+  const expires = /Expires: (\S+)/.exec(policy)?.[1];
+  expect(Date.parse(expires!)).toBeGreaterThan(Date.now());
 });
 
 test("mobile menu dismisses with Escape, restores focus, and closes outside", async ({
