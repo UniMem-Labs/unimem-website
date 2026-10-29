@@ -6,6 +6,7 @@ export type Section = {
   code?: string;
   codeLabel?: string;
   note?: string;
+  table?: { caption: string; head: string[]; rows: string[][] };
   source?: [string, string];
 };
 export type ContentPage = {
@@ -94,7 +95,7 @@ export const pages: ContentPage[] = [
           "Use Python 3.10 or later in a virtual environment. Install from the inspected source repository rather than relying on an unverified package-registry release. The base core needs PyYAML and does not require an LLM.",
           "Run these commands from your terminal. The final command asks the local store for the fact you just added. This proves the persistence and recall path; it does not yet establish that memory improves a task.",
         ],
-        code: 'git clone https://github.com/varma61923/commontrace-v2.git\ncd commontrace-v2\npython -m venv .venv\nsource .venv/bin/activate\npython -m pip install -e .\n\nunimem init --dest ./mem\nunimem fact add "The launch checklist is stored in the blue folder." --dest ./mem\nunimem recall "Where is the launch checklist stored?" --dest ./mem',
+        code: 'git clone https://github.com/varma61923/unimem.git\ncd unimem\npython -m venv .venv\nsource .venv/bin/activate\npython -m pip install -e .\n\nunimem init --dest ./mem\nunimem fact add "The launch checklist is stored in the blue folder." --dest ./mem\nunimem recall "Where is the launch checklist stored?" --dest ./mem',
         codeLabel: "Terminal · macOS / Linux",
         note: "Windows: activate with .venv\\Scripts\\Activate.ps1 in PowerShell. Source access follows the repository’s GitHub permissions.",
         source: [
@@ -592,6 +593,183 @@ export const pages: ContentPage[] = [
       },
     ],
     related: ["/product", "/enterprise", "/developers"],
+  },
+  {
+    path: "/benchmarks",
+    eyebrow: "BENCHMARKS / MEASURED, WITH THE CAVEATS",
+    title: "Show the numbers. Show the limits.",
+    description:
+      "UniMem conversation memory measured end to end on LoCoMo, LongMemEval and BEAM: retrieval, answer accuracy, serving latency, reproduction commands and honest caveats.",
+    lead: "A memory product that asks agents to earn trust should earn yours first. These are the measurements, how to reproduce them, and what they do not show.",
+    sections: [
+      {
+        id: "method",
+        title: "Measured end to end, on the official data.",
+        paragraphs: [
+          "Every conversation is written through the product’s own write path, exactly as an agent would write it. Every question is answered from what recall delivers, by a model, and graded with the benchmark’s own judge protocol. Datasets are pinned to a published revision and verified by SHA-256 before use.",
+          "Two kinds of number are reported. Retrieval uses no model and covers every question: the share of gold evidence turns that reach the delivered context, and what that context costs in tokens. Answer accuracy uses a model as reader and judge, on a stratified sample when model quota does not allow every question.",
+          "Result files record hashes of the dataset, harness, judges, reader prompt and product source. The harness refuses to drop a question that fails, rather than score only the survivors.",
+        ],
+        source: ["Methodology and results", "docs/memory-benchmarks.md"],
+      },
+      {
+        id: "retrieval",
+        title: "Gold evidence reaches the reader far more often.",
+        paragraphs: [
+          "The baseline is a fixed 1,500-token recall. The improved arm is an adaptive recall of 6,000 tokens that grows to 16,000 for summaries, orderings, counts and lists. Store, embeddings, judge code and generation settings are identical between the arms.",
+          "The gain is not free. Delivered context grows from about 1,450 to between 6,000 and 10,000 tokens on average, which is 6 to 30 percent of each conversation history. Two cheaper levers, a larger embedding model and a graph walk, were measured and rejected because they did not pay for themselves.",
+        ],
+        table: {
+          caption: "Share of gold evidence delivered to the reader",
+          head: ["Benchmark", "Questions", "Baseline", "Improved"],
+          rows: [
+            ["LoCoMo, all categories", "1,540", "0.823", "0.950"],
+            ["LongMemEval-S, stratified", "150", "0.820", "0.949"],
+            ["BEAM 100K, all categories", "400", "0.724", "0.859"],
+          ],
+        },
+      },
+      {
+        id: "accuracy",
+        title: "Answer accuracy rises with it.",
+        paragraphs: [
+          "On a 100-question stratified LoCoMo sample, graded with the binary judge used in published Mem0 and EverOS comparisons, overall accuracy rose from 68.0 to 87.0 percent. The paired bootstrap 95 percent interval for the difference is +11.0 to +27.0 points.",
+          "Most baseline misses were refusals: the reader said it had no information because the evidence never arrived. That is a retrieval failure, and the improved arm fixes much of it. Remaining misses are mostly loose date arithmetic and commonsense inferences the reader still declines.",
+        ],
+        table: {
+          caption: "LoCoMo answer accuracy, Gemma 4 31B as reader and judge",
+          head: ["Category", "Questions", "Baseline %", "Improved %"],
+          rows: [
+            ["Single-hop", "26", "76.9", "96.2"],
+            ["Multi-hop", "26", "76.9", "92.3"],
+            ["Temporal", "25", "76.0", "84.0"],
+            ["Open-domain", "23", "39.1", "73.9"],
+            ["Overall", "100", "68.0", "87.0"],
+          ],
+        },
+      },
+      {
+        id: "serving",
+        title: "The deployed gateway returns the same answers, fast.",
+        paragraphs: [
+          "A separate gateway process on a fresh store ingested all ten LoCoMo conversations over HTTP and answered all 1,540 questions through the HTTP recall endpoint, four clients at a time, on a shared 16-core CPU host. Every served context was byte-identical to in-process recall.",
+        ],
+        table: {
+          caption: "Gateway serving measurements, CPU only",
+          head: ["Measure", "Result"],
+          rows: [
+            [
+              "Served contexts identical to in-process recall",
+              "1,540 of 1,540",
+            ],
+            ["Recall latency, p50 / p95", "152 ms / 283 ms"],
+            [
+              "Recall throughput, 4 concurrent clients",
+              "20.0 queries per second",
+            ],
+            ["Write latency, p50 / p95", "780 ms / 1,149 ms"],
+            ["Gold evidence delivered", "0.958"],
+          ],
+        },
+      },
+      {
+        id: "limits",
+        title: "What these numbers do not show.",
+        paragraphs: [
+          "The same model is reader and judge in the answer-accuracy runs. Published leaderboards mostly judge with other models, so absolute numbers are only approximately comparable to them. The two arms share the judge, so the difference between them is exact. Answer accuracy uses stratified samples; retrieval uses every question.",
+          "Benchmarks test recall of conversation facts. They cannot tell you whether a memory improved your agent’s outcomes on your tasks. That is a different, causal question, and it is why UniMem ships randomized per-memory holdouts. The example verdict tables in the project README come from a synthetic run and are labeled as such.",
+          "LoCoMo is licensed CC BY-NC 4.0. None of the datasets is redistributed with the product; a script downloads each from its publisher at the pinned revision.",
+        ],
+        note: "We publish baselines, sample sizes and judge caveats on purpose. If a number here cannot be reproduced from the commands below, treat that as a bug and tell us.",
+      },
+      {
+        id: "reproduce",
+        title: "Reproduce the retrieval result.",
+        paragraphs: [
+          "The retrieval measurement needs no model and no API key. Download the pinned datasets, install the CPU embedding extra, and run the harness over every LoCoMo question.",
+        ],
+        code: "python scripts/fetch_memory_benchmarks.py --dest data/benchmarks --merge-beam-10m\npip install -e '.[fastembed]'\n\npython benchmarks/conversation_bench.py --dataset locomo \\\n  --data data/benchmarks/locomo10.json \\\n  --budget 6000 --adaptive-budget --max-budget 16000",
+        codeLabel: "Terminal · from the product checkout",
+        source: ["Benchmark harness", "benchmarks/conversation_bench.py"],
+      },
+    ],
+    related: ["/product", "/learn/evaluating-agent-memory", "/docs"],
+    cta: "Run it on your own memory.",
+  },
+  {
+    path: "/investors",
+    eyebrow: "INVESTORS / THESIS, STATUS, AND RISKS",
+    title: "The referee for agent memory.",
+    description:
+      "UniMem’s investor overview: the thesis, why now, what exists today, the business model, honest pre-launch status, risks, and how to start a conversation.",
+    lead: "Agents are getting memory. Nobody can yet say which memories help. We are building the layer that can, and we would rather show you the evidence and the gaps than a deck of adjectives.",
+    sections: [
+      {
+        id: "thesis",
+        title: "Memory is becoming infrastructure. Trust is the missing layer.",
+        paragraphs: [
+          "Agents are moving from single sessions to persistent work. Persistence solves forgetting and gives mistakes a longer life: a stale convention, a bad lesson or a poisoned memory is delivered with confidence to every future task.",
+          "In our read of the category, memory products compete on storage and retrieval quality. Whether a particular memory caused a better outcome is a separate, causal question, and it is the one UniMem is built around. Each eligible memory is randomly withheld from a small share of tasks, outcomes are compared with integrity checks, harmful memories can be withdrawn, and changes are reviewed, promoted or rolled back.",
+          "The category is real and funded: several memory-layer companies have raised seed and Series A rounds. We are not asking you to believe agents need memory. We are making a narrower claim: memory that cannot be audited will not be allowed to touch consequential work.",
+        ],
+      },
+      {
+        id: "why-now",
+        title: "Why now.",
+        paragraphs: [
+          "Coding and support agents already return to the same work daily, so memory is shipping in products people use. Memory poisoning is a documented attack class in the research literature. Enterprises deploying persistent agents will ask for audit, review and rollback before they ask for more recall.",
+          "Evaluation of memory is still mostly retrieval benchmarks and anecdote. A product that produces per-memory causal evidence from live traffic can become the system of record for whether an agent’s experience is helping.",
+        ],
+      },
+      {
+        id: "today",
+        title: "What exists today.",
+        paragraphs: [
+          "Per the project README and repository: a local-first Python core with one runtime dependency, a CLI, an MCP server with more than 60 tools, an HTTP gateway, framework middleware and one-command installs for coding agents, and a multi-tenant Hub with SSO, SCIM, role-based access, audit export and envelope encryption. CI runs about 8,000 tests and the Hub is tested against real PostgreSQL.",
+          "The measured retrieval and answer-accuracy results are on the benchmarks page, with their caveats. The randomized measurement, integrity audit, change control and evidence-proof machinery are implemented and documented with their assumptions.",
+        ],
+        bullets: [
+          "Source is public under AGPL-3.0-only; the product is pre-1.0 and says so.",
+          "The contextual causal gate runs on the local store and gateway; the Hub does not yet record all per-assignment data it needs.",
+          "Several areas, including federation noise and some physical-AI integrations, are labeled experimental in the source.",
+        ],
+        source: ["Project status table", "README.md#project-status"],
+      },
+      {
+        id: "model",
+        title: "How this becomes a business.",
+        paragraphs: [
+          "The open local core is the adoption surface. The commercial surface is the layer teams need once memory matters: the hosted or self-hosted Hub, organization identity and access, governance, audit and retention, and a commercial license for organizations that cannot use AGPL software.",
+          "The Hub already contains plan entitlements (free, team and scale) and billing integration. Because UniMem measures causal effect, it can also support outcome-linked pricing: a share of value only where an effect is established. That component exists in the Hub code. It has not been charged to any customer.",
+          "Cross-customer evidence is the long-term moat we are designing for. Pooled, privacy-preserving evidence about which kinds of memory help in which contexts gives every new deployment a better starting prior. This is designed and partly implemented. It is not yet proven at scale.",
+        ],
+      },
+      {
+        id: "status",
+        title: "Honest status.",
+        paragraphs: [
+          "UniMem has not launched publicly and has no revenue and no paying customers. We are looking for a small number of design partners: teams running a persistent coding or support agent who want to find out which of its memories help and which hurt, with a result their team can verify.",
+          "We will share more than this page can: a technical memo, the architecture, the benchmark artifacts, and a live walkthrough of the product on a seeded workflow.",
+        ],
+      },
+      {
+        id: "risks",
+        title: "Risks we would raise ourselves.",
+        paragraphs: [
+          "Breadth: the product surface is wide, from conversation memory to physical-AI governance. The early commercial wedge is narrower, and we are sequencing accordingly. Competition: well-funded teams are building memory layers and can add measurement. Our lead depends on making causal evidence easy enough to adopt.",
+          "Dependence on outcome signals: measurement is only as good as the success signal a customer can supply. Licensing: AGPL protects the project and complicates some enterprise adoption, which is the reason for a commercial license. Evidence is conditional: every guarantee in the product states its assumptions, and none is a claim of safety or compliance.",
+        ],
+      },
+      {
+        id: "contact",
+        title: "Start a conversation.",
+        paragraphs: [
+          "If you invest in developer infrastructure, AI infrastructure or agent safety, or you run an agent that should be a design partner, write to us. Tell us what you would need to see in the next 90 days.",
+        ],
+      },
+    ],
+    related: ["/benchmarks", "/product", "/about"],
+    cta: "Tell us what you would need to see.",
   },
   {
     path: "/about",

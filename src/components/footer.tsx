@@ -19,6 +19,7 @@ export function Footer() {
             <Link href="/product">Product</Link>
             <Link href="/developers">Developers</Link>
             <Link href="/docs">Documentation</Link>
+            <Link href="/benchmarks">Benchmarks</Link>
             <a href={REPO}>
               Source on GitHub <Arrow diagonal />
             </a>
@@ -35,6 +36,7 @@ export function Footer() {
           <div>
             <span>UniMem</span>
             <Link href="/about">About</Link>
+            <Link href="/investors">Investors</Link>
             <Link href="/contact">Run a pilot</Link>
             <Link href="/privacy">Privacy</Link>
             <Link href="/terms">Terms</Link>

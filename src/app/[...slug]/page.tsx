@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { pages, getPage } from "@/lib/content";
-import { metadata as meta, SITE, SOURCE } from "@/lib/site";
+import { CONTACT, metadata as meta, SITE, SOURCE } from "@/lib/site";
 import { Arrow } from "@/components/icons";
 import { TableOfContents } from "@/components/table-of-contents";
 import { CopyCode } from "@/components/code-example";
@@ -132,6 +132,27 @@ export default async function Page({
               <span aria-hidden="true">·</span>
               <span>{readingMinutes} min read</span>
             </div>
+          ) : p.path === "/investors" ? (
+            <div className="hero-actions">
+              <a
+                href={`mailto:${CONTACT}?subject=${encodeURIComponent("UniMem investor conversation")}`}
+                className="button"
+              >
+                Email the founder <Arrow />
+              </a>
+              <Link href="/benchmarks" className="text-link">
+                See the benchmarks <Arrow />
+              </Link>
+            </div>
+          ) : p.path === "/benchmarks" ? (
+            <div className="hero-actions">
+              <Link href="#reproduce" className="button">
+                Reproduce it <Arrow />
+              </Link>
+              <Link href="/investors" className="text-link">
+                Why this matters <Arrow />
+              </Link>
+            </div>
           ) : (
             <div className="hero-actions">
               <Link
@@ -189,6 +210,37 @@ export default async function Page({
                     ))}
                   </ul>
                 )}
+                {s.table && (
+                  <div className="data-table-wrap">
+                    <table className="data-table">
+                      <caption>{s.table.caption}</caption>
+                      <thead>
+                        <tr>
+                          {s.table.head.map((h) => (
+                            <th scope="col" key={h}>
+                              {h}
+                            </th>
+                          ))}
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {s.table.rows.map((row) => (
+                          <tr key={row[0]}>
+                            {row.map((cell, i) =>
+                              i === 0 ? (
+                                <th scope="row" key={cell}>
+                                  {cell}
+                                </th>
+                              ) : (
+                                <td key={i}>{cell}</td>
+                              ),
+                            )}
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                )}
                 {s.code && <CopyCode code={s.code} label={s.codeLabel} />}
                 {s.note && (
                   <div className="callout">
@@ -205,18 +257,40 @@ export default async function Page({
             {!p.legal && (
               <div className="content-cta">
                 <h2>{p.cta || "Put experience to work."}</h2>
-                <p>
-                  Try the local loop, or bring one workflow to a pilot
-                  conversation.
-                </p>
-                <div className="hero-actions">
-                  <Link className="button" href="/contact?intent=pilot">
-                    Talk about a pilot <Arrow />
-                  </Link>
-                  <Link className="text-link" href="/developers">
-                    Developer quickstart <Arrow />
-                  </Link>
-                </div>
+                {p.path === "/investors" ? (
+                  <>
+                    <p>
+                      We will send the technical memo, benchmark artifacts and a
+                      live walkthrough on request.
+                    </p>
+                    <div className="hero-actions">
+                      <a
+                        className="button"
+                        href={`mailto:${CONTACT}?subject=${encodeURIComponent("UniMem investor conversation")}`}
+                      >
+                        Email the founder <Arrow />
+                      </a>
+                      <Link className="text-link" href="/contact?intent=pilot">
+                        Or become a design partner <Arrow />
+                      </Link>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <p>
+                      Try the local loop, or bring one workflow to a pilot
+                      conversation.
+                    </p>
+                    <div className="hero-actions">
+                      <Link className="button" href="/contact?intent=pilot">
+                        Talk about a pilot <Arrow />
+                      </Link>
+                      <Link className="text-link" href="/developers">
+                        Developer quickstart <Arrow />
+                      </Link>
+                    </div>
+                  </>
+                )}
               </div>
             )}
             <div className="related-pages">

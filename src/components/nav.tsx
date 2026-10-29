@@ -7,6 +7,7 @@ const links = [
   ["Product", "/product"],
   ["Developers", "/developers"],
   ["Enterprise", "/enterprise"],
+  ["Benchmarks", "/benchmarks"],
   ["Learn", "/learn"],
 ] as const;
 export function Nav() {

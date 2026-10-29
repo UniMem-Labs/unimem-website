@@ -1,6 +1,6 @@
 # UniMem.org
 
-A separate, Vercel-ready marketing website for UniMem. Next.js App Router, TypeScript, React, self-hosted Geist, static content pages, and small client interactions. Product source was analyzed at `varma61923/commontrace-v2@c9541a1`; this repository does not contain or modify the product implementation.
+A separate, Vercel-ready marketing website for UniMem. Next.js App Router, TypeScript, React, self-hosted Geist, static content pages, and small client interactions. Product source was analyzed at `varma61923/unimem@c9541a1` (formerly `commontrace-v2`); this repository does not contain or modify the product implementation.
 
 ```bash
 npm ci
@@ -28,7 +28,8 @@ CHROME_PATH=/usr/bin/chromium npm run test:e2e
 
 ## Included
 
-- 16 substantive content routes: homepage, product, developers, enterprise, three use cases, docs index, learn index, three articles, about, contact, privacy, and terms.
+- 18 substantive content routes: homepage, product, developers, enterprise, three use cases, docs index, learn index, three articles, benchmarks, investors, about, contact, privacy, and terms.
+- `/benchmarks` publishes the product's LoCoMo, LongMemEval and BEAM results with baselines, sample sizes and caveats. `/investors` states the thesis, status (pre-launch, no revenue) and risks. Figures come from the product repository's `docs/memory-benchmarks.md` and README; update them when the product docs change.
 - Explicitly simulated, interactive memory loop; real CLI/Python/MCP/HTTP interface examples; copy controls; responsive navigation.
 - Per-page SEO, sitemap, robots, share PNG, favicon, manifest, breadcrumbs, and appropriate structured data.
 - Bounded, validated contact endpoint with shared atomic rate limits, idempotent email delivery, and honest failure states.

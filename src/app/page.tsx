@@ -5,7 +5,7 @@ import { CodeExample } from "@/components/code-example";
 import { metadata as meta, REPO, SITE } from "@/lib/site";
 export const metadata = meta(
   "Evidence-based memory for AI agents",
-  "Give agents persistent memory. Measure which memories improve future work, withdraw harmful guidance, and govern changes with UniMem.",
+  "UniMem gives agents persistent memory and measures which memories improve future work. Withdraw harmful guidance, review changes, and keep an evidence trail. Open source, local first.",
   "/",
 );
 const loop = [
@@ -125,6 +125,42 @@ export default function Home() {
               Any MCP client <span aria-hidden="true">↗</span>
             </span>
           </div>
+        </div>
+      </section>
+      <section className="proof-band" aria-label="Measured results">
+        <div className="container proof-inner">
+          <div className="proof-intro">
+            <span className="eyebrow">MEASURED, NOT CLAIMED</span>
+            <p>
+              Benchmarked end to end on LoCoMo, LongMemEval and BEAM. Baselines,
+              sample sizes and caveats published.
+            </p>
+            <Link href="/benchmarks" className="text-link">
+              See the methodology <Arrow />
+            </Link>
+          </div>
+          <dl className="proof-stats">
+            <div>
+              <dt>Gold evidence delivered, LoCoMo</dt>
+              <dd>
+                0.82 <span aria-hidden="true">→</span> 0.95
+                <small>all 1,540 questions</small>
+              </dd>
+            </div>
+            <div>
+              <dt>Answer accuracy, LoCoMo sample</dt>
+              <dd>
+                68% <span aria-hidden="true">→</span> 87%
+                <small>n=100, paired 95% CI +11 to +27 pts</small>
+              </dd>
+            </div>
+            <div>
+              <dt>Served recall latency</dt>
+              <dd>
+                152 ms<small>p50 over HTTP, CPU only</small>
+              </dd>
+            </div>
+          </dl>
         </div>
       </section>
       <section className="container problem-section section" id="why-memory">
@@ -376,9 +412,12 @@ export default function Home() {
             Start building <Arrow />
           </Link>
           <Link className="button button-outline" href="/contact?intent=pilot">
-            Test one workflow with us <Arrow />
+            Become a design partner <Arrow />
           </Link>
-          <span>Start with a local store. Add your workflow when ready.</span>
+          <span>
+            Pre-launch. Start with a local store, or{" "}
+            <Link href="/investors">read the investor overview</Link>.
+          </span>
         </div>
       </section>
     </>
