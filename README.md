@@ -2,6 +2,8 @@
 
 The marketing website for UniMem: memory infrastructure for AI agents and robots. Built with Next.js App Router, React, TypeScript, and a self-hosted Geist font.
 
+Live: **https://getunimem.vercel.app**. The canonical `unimem.org` domain needs the external DNS changes documented in [domain-handoff.md](docs/domain-handoff.md).
+
 ## Develop
 
 Use Node.js 22 or later.

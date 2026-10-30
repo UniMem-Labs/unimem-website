@@ -39,3 +39,5 @@ The product source analysis, offline executable checks, feature boundaries, and 
 ## Deployment boundary
 
 The intended destination is the existing `getunimem` Next.js project in the UniMem Vercel team, backed by `UniMem-Labs/unimem-website`, with `unimem.org` as canonical. Apex and www were already attached and verified. Deployment protection, DNS, and email records are not changed by this release. Analytics remain disabled unless explicitly configured.
+
+The production code also passed [GitHub CI](https://github.com/UniMem-Labs/unimem-website/actions/runs/41099831752). The homepage, developer quickstart, benchmark interaction, and contact draft were checked on the protected preview, and its temporary access link was revoked. The public Vercel alias serves the production build. The canonical domain’s external DNS remains pending; see [domain-handoff.md](domain-handoff.md).

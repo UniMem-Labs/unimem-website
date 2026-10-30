@@ -61,3 +61,7 @@ All content routes are statically generated; assets use framework caching and ha
 Analytics is opt-in. Custom event names: `github_click`, `docs_click`, `quickstart_copy`, `pilot_cta`, `enterprise_navigation`, and accepted `contact_submission`. Events exclude form content. Extend events in `src/components/analytics.tsx`; review privacy implications first. Production or Vercel project controls may be needed for preview analytics.
 
 Headers include MIME sniffing prevention, strict-origin referrer policy, frame denial, feature restrictions, HSTS, and a baseline CSP. The CSP permits inline scripts/styles needed by this static Next.js configuration; it is not a nonce-based strict CSP. If adding third-party scripts, review the policy instead of broadly allowing arbitrary origins. Run HTTPS behind Vercel; real infrastructure behavior still needs production verification.
+
+## Current domain status
+
+The production application is publicly available at https://getunimem.vercel.app. The intended canonical domain is attached and ownership-verified, but its authoritative external DNS still routes away from Vercel. Apply the exact current web records in [domain-handoff.md](domain-handoff.md); changing the non-authoritative Vercel DNS zone cannot fix that routing.
