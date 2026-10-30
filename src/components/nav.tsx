@@ -3,14 +3,15 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { Arrow, Mark } from "./icons";
+import { SiteSearch, type SearchItem } from "./site-search";
 const links = [
   ["Platform", "/platform"],
   ["Developers", "/developers"],
   ["Enterprise", "/enterprise"],
-  ["Vision", "/vision"],
-  ["Investors", "/investors"],
+  ["Benchmarks", "/benchmarks"],
+  ["Learn", "/learn"],
 ] as const;
-export function Nav() {
+export function Nav({ searchItems }: { searchItems: SearchItem[] }) {
   const [open, setOpen] = useState(false);
   const header = useRef<HTMLElement>(null);
   const toggle = useRef<HTMLButtonElement>(null);
@@ -82,7 +83,8 @@ export function Nav() {
             </Link>
           ))}
         </nav>
-        <Link className="button button-small nav-cta" href="/developers">
+        <SiteSearch items={searchItems} />
+        <Link className="button button-small nav-cta" href="/developers#start">
           Start building <Arrow />
         </Link>
         <button

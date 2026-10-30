@@ -9,9 +9,9 @@
 5. Deploy a preview, verify the pages and form failure handling, then verify a real inquiry in the configured recipient inbox. Provider acceptance alone does not guarantee inbox delivery.
 6. Complete legal review and confirm public content, then promote the reviewed deployment to production.
 
-The website uses the native Vercel Next.js runtime; no custom server or output directory is needed. Select `clean/state-of-the-art-site` for a branch preview, or merge the reviewed PR to deploy from `main`.
+The website uses the native Vercel Next.js runtime; no custom server or output directory is needed. The existing project is `getunimem` (`prj_R5VkyUwpFtEPdiYXOofMkxZeYxAS`) in the UniMem team (`team_99A257FRlxFqwgfNTLSyhXiR`). Production tracks `main`. Reuse that project rather than provisioning a duplicate.
 
-Product links and install examples target `https://github.com/UniMem-Labs/unimem`, the planned product repository location. Complete that move before launch and verify the README, documentation, security policy, and clone command.
+Product links and install examples target the verified `https://github.com/varma61923/unimem`. Evidence links pin revision `4b6463ef337e1dabbdd9c095e054a1c494d96533`. The website lives independently at `UniMem-Labs/unimem-website`.
 
 ## Environment variables
 
@@ -26,6 +26,10 @@ Product links and install examples target `https://github.com/UniMem-Labs/unimem
 | `NEXT_PUBLIC_ENABLE_ANALYTICS` | Optional               | `true` enables Vercel Web Analytics and Speed Insights; default is disabled. Public boolean only, never a credential.          |
 
 Use Vercel’s encrypted environment configuration. Do not commit `.env.local`, screenshots of keys, or provider credentials. Redeploy after changing environment variables. Keep Preview credentials separate where possible.
+
+## Contact behavior and optional delivery
+
+Without all six delivery variables, the page composes a plain-text email draft in the browser. The visitor reviews the note, then opens their email app or copies it. No contact POST is made, no fields are persisted by the website, and no sent confirmation is shown. If the operator configures all delivery variables and rebuilds, the page uses the server endpoint below.
 
 ## Contact endpoint contract
 
@@ -48,11 +52,11 @@ Reference contracts: [Vercel request headers](https://vercel.com/docs/headers/re
 5. Wait for Vercel DNS verification and HTTPS certificate issuance. Verify apex HTTPS and a `www` deep link, then inspect canonical URLs, sitemap, robots, and share image on production.
 6. Submit `https://unimem.org/sitemap.xml` through the operator’s search-console account after launch. Do not promise indexing or rankings.
 
-DNS changes are intentionally manual. All canonical URLs already use `https://unimem.org`. Vercel deployment protection should keep unreviewed previews private; canonical tags do not replace access control.
+The apex and www domains were already attached and verified in the project during this refresh; this task does not replace DNS records. All canonical URLs already use `https://unimem.org`. Vercel deployment protection should keep unreviewed previews private; canonical tags do not replace access control.
 
 ## Analytics, caching, and security
 
-All 16 content routes are statically generated; assets use framework caching and hashed bundles. `/api/contact` explicitly sends `Cache-Control: no-store`. There is no third-party animation, video, font service, or client secret. The font is local and preloaded through `next/font/local`.
+All content routes are statically generated; assets use framework caching and hashed bundles. `/api/contact` explicitly sends `Cache-Control: no-store`. There is no third-party animation, video, font service, or client secret. The font is local and preloaded through `next/font/local`.
 
 Analytics is opt-in. Custom event names: `github_click`, `docs_click`, `quickstart_copy`, `pilot_cta`, `enterprise_navigation`, and accepted `contact_submission`. Events exclude form content. Extend events in `src/components/analytics.tsx`; review privacy implications first. Production or Vercel project controls may be needed for preview analytics.
 

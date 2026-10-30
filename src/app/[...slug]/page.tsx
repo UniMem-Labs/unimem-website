@@ -5,6 +5,9 @@ import { CONTACT, metadata as meta, SITE, SOURCE } from "@/lib/site";
 import { Arrow } from "@/components/icons";
 import { TableOfContents } from "@/components/table-of-contents";
 import { CopyCode } from "@/components/code-example";
+import { MemoryExplorer } from "@/components/memory-explorer";
+import { BenchmarkExplorer } from "@/components/benchmark-explorer";
+import { Quickstart } from "@/components/quickstart";
 export const dynamicParams = false;
 export function generateStaticParams() {
   return pages.map((p) => ({ slug: p.path.slice(1).split("/") }));
@@ -180,16 +183,19 @@ export default async function Page({
               <Link href="#reproduce" className="button">
                 Reproduce it <Arrow />
               </Link>
-              <Link href="/investors" className="text-link">
-                Why this matters <Arrow />
-              </Link>
+              <a
+                href={`${SOURCE}/docs/memory-benchmarks.md`}
+                className="text-link"
+              >
+                Read the source report <Arrow diagonal />
+              </a>
             </div>
           ) : (
             <div className="hero-actions">
               <Link
                 href={
                   p.path === "/developers"
-                    ? "#quickstart"
+                    ? "#start"
                     : p.path === "/enterprise"
                       ? "/contact?intent=pilot"
                       : "/developers"
@@ -213,6 +219,21 @@ export default async function Page({
             </div>
           )}
         </section>
+        {p.path === "/developers" && (
+          <div id="start">
+            <Quickstart />
+          </div>
+        )}
+        {p.path === "/platform" && (
+          <div className="page-experience">
+            <MemoryExplorer headingLevel={2} />
+          </div>
+        )}
+        {p.path === "/benchmarks" && (
+          <div className="page-experience">
+            <BenchmarkExplorer />
+          </div>
+        )}
         {p.path === "/investors" && (
           <div className="investment-brief" aria-label="The UniMem opportunity">
             <div>

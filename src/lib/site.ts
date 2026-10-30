@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 export const SITE = "https://unimem.org";
-export const REPO = "https://github.com/UniMem-Labs/unimem";
-export const SOURCE = `${REPO}/blob/main`;
+export const REPO = "https://github.com/varma61923/unimem";
+export const SOURCE_COMMIT = "4b6463ef337e1dabbdd9c095e054a1c494d96533";
+export const SOURCE = `${REPO}/blob/${SOURCE_COMMIT}`;
 export const CONTACT = "Pavan.Mudunuri@unimem.org";
 export function metadata(
   title: string,

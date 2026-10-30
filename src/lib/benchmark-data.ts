@@ -1,0 +1,48 @@
+export const benchmarkData = [
+  {
+    name: "LoCoMo",
+    sample: "All 1,540 questions · categories 1–4",
+    baseline: 82.3,
+    improved: 95.0,
+    tokens: "1,447 → 6,660",
+    rows: [
+      ["Single-hop", 90.4, 98.0],
+      ["Multi-hop", 57.1, 89.9],
+      ["Temporal", 91.5, 96.6],
+      ["Open-domain", 53.1, 77.9],
+    ],
+  },
+  {
+    name: "LongMemEval-S",
+    sample: "150 questions · stratified retrieval sample",
+    baseline: 82.0,
+    improved: 94.9,
+    tokens: "1,468 → 8,838",
+    rows: [
+      ["Session · user", 93.5, 100],
+      ["Session · assistant", 100, 100],
+      ["Preference", 74.7, 86.7],
+      ["Knowledge update", 81.8, 100],
+      ["Temporal reasoning", 77.3, 90],
+      ["Multi-session", 62.5, 93.5],
+    ],
+  },
+  {
+    name: "BEAM 100K",
+    sample: "All 400 evidence-bearing questions",
+    baseline: 72.4,
+    improved: 85.9,
+    tokens: "1,469 → 9,484",
+    rows: [
+      ["Contradiction", 81.5, 85.3],
+      ["Event ordering", 57.1, 98.5],
+      ["Extraction", 69.2, 79.2],
+      ["Instruction following", 86.7, 89.8],
+      ["Knowledge update", 85.8, 89.2],
+      ["Multi-session", 64.1, 86.7],
+      ["Preference", 73.5, 83.3],
+      ["Summarization", 30.3, 58.6],
+      ["Temporal reasoning", 98.8, 100],
+    ],
+  },
+] as const;

@@ -7,6 +7,14 @@ export const metadata = meta(
   "/contact",
 );
 export default function Contact() {
+  const deliveryReady = [
+    "RESEND_API_KEY",
+    "CONTACT_FROM",
+    "CONTACT_TO",
+    "UPSTASH_REDIS_REST_URL",
+    "UPSTASH_REDIS_REST_TOKEN",
+    "CONTACT_RATE_LIMIT_SECRET",
+  ].every((key) => Boolean(process.env[key]));
   return (
     <div className="container contact-page">
       <section className="page-hero">
@@ -55,7 +63,7 @@ export default function Contact() {
             the first conversation.
           </p>
         </aside>
-        <ContactForm />
+        <ContactForm mode={deliveryReady ? "delivery" : "email"} />
       </div>
     </div>
   );

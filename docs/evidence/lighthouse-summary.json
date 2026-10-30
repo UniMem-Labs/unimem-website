@@ -1,0 +1,31 @@
+{
+  "url": "http://127.0.0.1:3001/",
+  "lighthouseVersion": "13.5.0",
+  "formFactor": "mobile",
+  "throttlingMethod": "simulate",
+  "scores": {
+    "performance": 97,
+    "accessibility": 100,
+    "best-practices": 100,
+    "seo": 100
+  },
+  "metrics": {
+    "first-contentful-paint": {
+      "value": 911.7555,
+      "unit": "millisecond"
+    },
+    "largest-contentful-paint": {
+      "value": 2432.7555,
+      "unit": "millisecond"
+    },
+    "total-blocking-time": {
+      "value": 116.62225000000012,
+      "unit": "millisecond"
+    },
+    "cumulative-layout-shift": {
+      "value": 0,
+      "unit": "unitless"
+    }
+  },
+  "scope": "Single local production-build mobile lab run; not field Core Web Vitals or an INP guarantee."
+}

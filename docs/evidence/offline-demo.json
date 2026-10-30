@@ -1,0 +1,49 @@
+{
+  "remember": {
+    "question": "How are refunds issued?",
+    "today": "Refunds are issued through the v2 payments API.",
+    "as_of": "2026-01-03",
+    "then": "Refunds are issued through the v1 refunds endpoint."
+  },
+  "measure": {
+    "occasions": 1000,
+    "integrity": "SOUND",
+    "memories": [
+      {
+        "memory": "verify-owner",
+        "planted": 0.2,
+        "verdict": "HELPS",
+        "effect": 0.1963,
+        "ci": [0.0365, 0.3491],
+        "with": 0.6653,
+        "without": 0.469
+      },
+      {
+        "memory": "retry-429",
+        "planted": 0.0,
+        "verdict": "NO_MEASURABLE_EFFECT",
+        "effect": 0.0109,
+        "ci": [-0.1488, 0.17],
+        "with": 0.5696,
+        "without": 0.5588
+      },
+      {
+        "memory": "legacy-refund-api",
+        "planted": -0.2,
+        "verdict": "HURTS",
+        "effect": -0.2301,
+        "ci": [-0.3813, -0.0708],
+        "with": 0.4508,
+        "without": 0.6809
+      }
+    ]
+  },
+  "govern": {
+    "withdrawn": ["legacy-refund-api"],
+    "graduated": ["verify-owner"],
+    "under_test": ["retry-429"]
+  },
+  "seconds": 1.84,
+  "source_commit": "4b6463ef337e1dabbdd9c095e054a1c494d96533",
+  "command": "unimem demo --json"
+}

@@ -5,7 +5,12 @@ import { Arrow } from "./icons";
 import { event } from "./analytics";
 import { CONTACT } from "@/lib/site";
 import { validateInquiry, type FieldErrors } from "@/lib/contact";
-export function ContactForm() {
+import { CopyCode } from "./code-example";
+export function ContactForm({
+  mode = "delivery",
+}: {
+  mode?: "delivery" | "email";
+}) {
   const startedAt = useRef(0);
   const requestId = useRef("");
   const locked = useRef(false);
@@ -14,6 +19,8 @@ export function ContactForm() {
   const [result, setResult] = useState<{ ok: boolean; message: string } | null>(
     null,
   );
+  const [draft, setDraft] = useState("");
+  const draftRef = useRef<HTMLDivElement>(null);
   const resultRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
     startedAt.current = Date.now();
@@ -42,6 +49,38 @@ export function ContactForm() {
             checked.errors[first as keyof FieldErrors] ||
             "Please check the form.",
         });
+      return;
+    }
+    if (mode === "email") {
+      const d = checked.data;
+      setDraft(
+        [
+          "Hello UniMem,",
+          "",
+          "I’d like to discuss a memory workflow.",
+          "",
+          "Name: " + d.name,
+          "Reply to: " + d.email,
+          "Company / project: " + d.company,
+          "",
+          "Workflow",
+          d.workflow,
+          "",
+          "Memory problem",
+          d.problem,
+          ...(d.message ? ["", "Additional context", d.message] : []),
+          "",
+          "Thank you,",
+          d.name,
+        ].join("\n"),
+      );
+      requestAnimationFrame(() => {
+        draftRef.current?.focus();
+        draftRef.current?.scrollIntoView({
+          block: "center",
+          behavior: "instant",
+        });
+      });
       return;
     }
     locked.current = true;
@@ -114,6 +153,7 @@ export function ContactForm() {
       noValidate
       onBlurCapture={recheckField}
       onChangeCapture={(e) => {
+        if (draft) setDraft("");
         const field = e.target;
         if (
           (field instanceof HTMLInputElement ||
@@ -148,7 +188,9 @@ export function ContactForm() {
         </div>
       )}
       <p className="form-intro">
-        All fields are required unless marked optional.
+        {mode === "email"
+          ? "Prepare a note, review it, then send it from your email app. Nothing is sent or stored by this form."
+          : "All fields are required unless marked optional."}
       </p>
       <div className="form-grid">
         <div className="form-field">
@@ -245,8 +287,46 @@ export function ContactForm() {
         <input id="website" name="website" tabIndex={-1} autoComplete="off" />
       </div>
       <button className="button" type="submit" disabled={busy}>
-        {busy ? "Sending inquiry…" : "Start a conversation"} <Arrow />
+        {busy
+          ? "Sending inquiry…"
+          : mode === "email"
+            ? "Prepare your email"
+            : "Start a conversation"}{" "}
+        <Arrow />
       </button>
+      {draft && (
+        <div
+          className="contact-draft"
+          ref={draftRef}
+          tabIndex={-1}
+          aria-label="Review your inquiry"
+        >
+          <span className="eyebrow">READY FOR YOUR REVIEW</span>
+          <h2>A conversation starts here.</h2>
+          <p>
+            Review the note below. Your email app will open with the recipient
+            and message filled in; you decide when to send it.
+          </p>
+          <a
+            className="button"
+            href={
+              "mailto:" +
+              CONTACT +
+              "?subject=" +
+              encodeURIComponent("UniMem pilot · memory workflow") +
+              "&body=" +
+              encodeURIComponent(draft)
+            }
+          >
+            Open email app <Arrow diagonal />
+          </a>
+          <p className="small-note">
+            If your mail app limits long drafts, copy the full note below and
+            email {CONTACT}.
+          </p>
+          <CopyCode code={draft} label="Inquiry draft" />
+        </div>
+      )}
       <p className="form-note">
         Please leave out secrets and customer data. We’ll use these details to
         respond to your inquiry. Read the{" "}

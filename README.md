@@ -41,6 +41,12 @@ npm run test:e2e
 
 ## Deploy
 
-Import `UniMem-Labs/unimem-website` into Vercel. Set the server variables documented in [.env.example](.env.example) for contact delivery. Without them, the form reports that delivery is unavailable. Analytics are opt-in.
+Import `UniMem-Labs/unimem-website` into Vercel. Set the server variables documented in [.env.example](.env.example) for contact delivery. Without them, the contact page prepares an email draft locally for the visitor to review and send through their email app. Analytics are opt-in.
 
-See [deployment instructions](docs/deployment.md) and the [product claim map](docs/product-map.md). Product links and installation examples target `UniMem-Labs/unimem`; complete the planned product repository move before launch. Review benchmark evidence, legal drafts, and production configuration before launch.
+See [deployment instructions](docs/deployment.md) and the [product claim map](docs/product-map.md). Product links and installation examples target the verified source, `varma61923/unimem`. Evidence links are pinned to the reviewed revision. Review benchmark evidence, legal drafts, and production configuration before launch.
+
+## Product refresh
+
+The interactive memory explorer, retrieval benchmark explorer, OS-aware quickstart, and keyboard search use the current product source. See [source analysis](docs/source-analysis.md) for claim boundaries and verification. The contact page prepares a reviewable email locally when delivery credentials are absent; it never claims a message was sent.
+
+See [website QA](docs/qa.md) for browser coverage, local performance results, and visual previews.

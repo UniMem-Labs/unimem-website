@@ -2,38 +2,13 @@ import Link from "next/link";
 import { Arrow } from "@/components/icons";
 import { MemoryDemo } from "@/components/memory-demo";
 import { CodeExample } from "@/components/code-example";
+import { MemoryExplorer } from "@/components/memory-explorer";
 import { metadata as meta, REPO, SITE } from "@/lib/site";
 export const metadata = meta(
   "The memory system for intelligent machines",
   "UniMem is the complete memory system for AI agents and robots: lessons, time-aware facts, knowledge graphs and conversations, with randomized evidence of which memories improve outcomes. Open source, local first.",
   "/",
 );
-const memoryKinds = [
-  [
-    "Lessons",
-    "Reusable guidance distilled from agent traces, admitted through review receipts bound to exact content.",
-  ],
-  [
-    "Time-aware facts",
-    "Propositions with valid time and record time. Ask what was true then, and what the store believed then.",
-  ],
-  [
-    "Knowledge graph",
-    "Typed entities and relations with validity windows, entity resolution, communities and multi-hop walks.",
-  ],
-  [
-    "Conversations",
-    "Per-space conversation memory with summaries, profiles and time-aware recall across long histories.",
-  ],
-  [
-    "Memory blocks",
-    "Character-limited core memory with revisions and an audit log, always in the agent’s context.",
-  ],
-  [
-    "Procedures",
-    "Recorded workflows an agent can replay, plus curated knowledge pages and incident narratives.",
-  ],
-];
 const demoOutput = `$ unimem demo
 
 1/3 REMEMBER  facts that know when they were true
@@ -45,7 +20,7 @@ const demoOutput = `$ unimem demo
     integrity audit: SOUND
     memory               planted  measured  verdict
     verify-owner            +20%      +20%  HELPS
-    retry-429                +0%       +1%  NO EFFECT
+    retry-429                +0%       +1%  NO MEASURABLE EFFECT
     legacy-refund-api       -20%      -23%  HURTS
 
 3/3 GOVERN    the evidence changes what the agent sees
@@ -142,12 +117,12 @@ export default function Home() {
                 </span>
               </h1>
               <p>
-                Give AI agents and robots a memory that lasts beyond the next
-                task. Connect experience to evidence. Keep what helps,
-                reconsider what hurts, and stay in control of what changes.
+                Give agents and robots a memory that lasts. Recall the right
+                experience. Measure whether it helps. Make every change
+                reviewable.
               </p>
               <div className="hero-actions">
-                <Link href="/developers#demo" className="button">
+                <Link href="/developers#start" className="button">
                   Build with UniMem <Arrow />
                 </Link>
                 <Link href="/platform" className="text-link">
@@ -186,23 +161,24 @@ export default function Home() {
             WHERE IT WORKS
           </span>
           <div className="integration-names">
-            <span>Claude Code</span>
-            <span>Cursor</span>
-            <span>Codex</span>
-            <span>Windsurf</span>
-            <span>
+            <Link href="/developers#start">Claude Code</Link>
+            <Link href="/developers#start">Cursor</Link>
+            <Link href="/developers#start">Codex</Link>
+            <Link href="/developers#start">Windsurf</Link>
+            <Link href="/developers#start">
               Any MCP client <span aria-hidden="true">↗</span>
-            </span>
+            </Link>
           </div>
         </div>
       </section>
       <section className="proof-band" aria-label="Measured results">
         <div className="container proof-inner">
           <div className="proof-intro">
-            <span className="eyebrow">MEASURED, NOT CLAIMED</span>
+            <span className="eyebrow">EVIDENCE YOU CAN INSPECT</span>
             <p>
-              Benchmarked end to end on LoCoMo, LongMemEval and BEAM. Baselines,
-              sample sizes and caveats published.
+              Published retrieval results on LoCoMo, LongMemEval-S, and BEAM
+              100K. Baselines, token costs, and a separate answer-quality sample
+              included.
             </p>
             <Link href="/benchmarks" className="text-link">
               See the methodology <Arrow />
@@ -212,15 +188,13 @@ export default function Home() {
             <div>
               <dt>Gold evidence delivered, LoCoMo</dt>
               <dd>
-                0.82 <span aria-hidden="true">→</span> 0.95
-                <small>all 1,540 questions</small>
+                95.0%<small>82.3% baseline · all 1,540 questions</small>
               </dd>
             </div>
             <div>
               <dt>Answer accuracy, LoCoMo sample</dt>
               <dd>
-                68% <span aria-hidden="true">→</span> 87%
-                <small>n=100, paired 95% CI +11 to +27 pts</small>
+                +19 pts<small>68% → 87% · n=100 · 95% CI +11 to +27 pts</small>
               </dd>
             </div>
             <div>
@@ -294,15 +268,7 @@ export default function Home() {
             Connected in one governed memory system.
           </p>
         </div>
-        <div className="memory-grid">
-          {memoryKinds.map(([title, text], i) => (
-            <article key={title}>
-              <span className="eyebrow">0{i + 1}</span>
-              <h3>{title}</h3>
-              <p>{text}</p>
-            </article>
-          ))}
-        </div>
+        <MemoryExplorer />
         <div className="retrieval-strip">
           <span className="eyebrow">ONE RECALL, ONE TOKEN BUDGET</span>
           <p>
@@ -565,7 +531,7 @@ export default function Home() {
         <div className="container section">
           <div className="section-rail">
             <span className="eyebrow">BUILDING IN THE OPEN</span>
-            <span className="eyebrow">RAISING FOR THE NEXT CHAPTER</span>
+            <span className="eyebrow">START WITH ONE REAL WORKFLOW</span>
           </div>
           <div className="founder-grid">
             <h2>
@@ -575,13 +541,13 @@ export default function Home() {
             </h2>
             <div>
               <p>
-                We are looking for investors and design partners who see what
-                comes after the next prompt. Help us turn a working product into
-                infrastructure for a world of intelligent machines.
+                Start with one agent and one persistent memory. Run the loop
+                locally. Inspect the evidence. Then bring the experience into
+                the work your team does every day.
               </p>
               <div className="founder-actions">
-                <Link className="button" href="/investors">
-                  The investor brief <Arrow />
+                <Link className="button" href="/developers#start">
+                  Build your first memory <Arrow />
                 </Link>
                 <Link className="text-link" href="/contact?intent=pilot">
                   Become a design partner <Arrow />

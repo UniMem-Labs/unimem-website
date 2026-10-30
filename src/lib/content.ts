@@ -95,18 +95,18 @@ export const pages: ContentPage[] = [
           "Before wiring anything, run the built-in demo. It creates a temporary store, writes facts with validity windows and recalls them at two points in time, runs 1,000 simulated support tickets through a randomized holdout, audits the experiment, and lets the evidence withdraw a harmful memory and graduate a helpful one.",
           "The agent and its outcomes are simulated with planted effects, so the measured effects can be checked against ground truth. The store, randomization, integrity audit, analysis and withdrawal are the real product. It needs no LLM, no API key and no network.",
         ],
-        code: "git clone https://github.com/UniMem-Labs/unimem.git\ncd unimem\npython -m venv .venv && source .venv/bin/activate\npython -m pip install -e .\n\nunimem demo                 # add --keep ./demo-store to inspect it afterwards",
+        code: "unimem demo --json          # inspect the structured result",
         codeLabel: "Terminal · macOS / Linux",
         source: ["Demo command", "README.md#see-the-whole-loop-in-30-seconds"],
       },
       {
         id: "quickstart",
-        title: "01 / Install from the product source.",
+        title: "01 / Recall your first fact.",
         paragraphs: [
-          "Use Python 3.10 or later in a virtual environment. Install from the inspected source repository rather than relying on an unverified package-registry release. The base core needs PyYAML and does not require an LLM.",
+          "After installing the local core above, add one fact to a fresh store. The base core uses PyYAML and does not require an LLM or an embedding service.",
           "Run these commands from your terminal. The final command asks the local store for the fact you just added. This proves the persistence and recall path; it does not yet establish that memory improves a task.",
         ],
-        code: 'git clone https://github.com/UniMem-Labs/unimem.git\ncd unimem\npython -m venv .venv\nsource .venv/bin/activate\npython -m pip install -e .\n\nunimem init --dest ./mem\nunimem fact add "The launch checklist is stored in the blue folder." --dest ./mem\nunimem recall "Where is the launch checklist stored?" --dest ./mem',
+        code: 'unimem init --dest ./mem\nunimem fact add "The launch checklist is stored in the blue folder." --dest ./mem\nunimem recall "Where is the launch checklist stored?" --dest ./mem',
         codeLabel: "Terminal · macOS / Linux",
         note: "Windows: activate with .venv\\Scripts\\Activate.ps1 in PowerShell. Source access follows the repository’s GitHub permissions.",
         source: [
@@ -684,7 +684,7 @@ export const pages: ContentPage[] = [
         title: "Local first. Scales to an organization.",
         paragraphs: [
           "The core is pure Python with one runtime dependency, runs offline and needs no LLM. JSONL and Markdown are canonical, with SQLite in WAL mode for facts. PostgreSQL with pgvector, LanceDB, Neo4j and FalkorDB are optional backends; the graph databases mirror an authoritative local graph.",
-          "Docker, Helm, Kubernetes and Terraform assets ship with the source. The project is pre-1.0: the local store, retrieval, MCP server, gateway and holdout experiment are marked stable and covered by about 8,000 tests in CI; newer areas are labeled in the status table.",
+          "Docker, Helm, Kubernetes and Terraform assets ship with the source. The repository includes automated tests for the local store, retrieval, MCP server, gateway, and holdout experiment. The project status table distinguishes core interfaces, thin SDK clients, and experimental features.",
         ],
         source: ["Project status", "README.md#project-status"],
       },
@@ -1040,8 +1040,8 @@ export const pages: ContentPage[] = [
         id: "inquiries",
         title: "Information you choose to submit.",
         paragraphs: [
-          "The inquiry form collects your name, email, company, workflow description, memory problem, and an optional message. It sends this information to the configured UniMem contact recipient through Resend when the server integration is enabled.",
-          "Do not include credentials, customer records, or sensitive agent traces. A server-side anti-abuse service stores a keyed hash of the request IP address with a short expiration; the application does not send the raw IP to Redis.",
+          "The contact page prepares an email draft in your browser when delivery credentials are not configured. Preparing this draft does not submit or persist the entered fields on our server. You review and send the message through your own email application. When server delivery is enabled, the form sends your name, email, company, workflow description, memory problem, and optional message to the configured UniMem recipient through Resend.",
+          "Do not include credentials, customer records, or sensitive agent traces. In server delivery mode, an anti-abuse service stores a keyed hash of the request IP address with a short expiration; the application does not send the raw IP to Redis. The browser email-composition path does not use that service.",
           "The operator must establish inquiry access and deletion procedures, a retention schedule, and any required regional transfer terms before launch. Contact Pavan.Mudunuri@unimem.org for questions or deletion requests.",
         ],
       },

@@ -121,11 +121,11 @@ test("mobile navigation, demo, code switcher, copy, keyboard and reduced motion"
     ),
   ).toBe("auto");
 });
-test("form validation and unconfigured-backend failure preserve input", async ({
+test("contact draft validates, preserves input, and requires explicit sending", async ({
   page,
 }) => {
   await page.goto("/contact");
-  await page.getByRole("button", { name: "Start a conversation" }).click();
+  await page.getByRole("button", { name: "Prepare your email" }).click();
   await expect(page.locator("#name")).toBeFocused();
   await expect(page.getByText("This field is required.")).toHaveCount(5);
   await page.locator("#name").fill("Test User");
@@ -134,20 +134,20 @@ test("form validation and unconfigured-backend failure preserve input", async ({
   await page.locator("#workflow").fill("A test coding agent");
   await page.locator("#problem").fill("Repeated decisions");
   await page.waitForTimeout(2100);
-  // Production-local QA uses the canonical origin to exercise the real endpoint.
-  await page.route("**/api/contact", async (route) => {
-    const response = await route.fetch({
-      headers: { ...route.request().headers(), origin: "https://unimem.org" },
-    });
-    await route.fulfill({ response });
+  const submissions: string[] = [];
+  page.on("request", (r) => {
+    if (r.url().includes("/api/contact")) submissions.push(r.url());
   });
-  await page.getByRole("button", { name: "Start a conversation" }).click();
-  await expect(page.locator('.contact-form [role="alert"]')).toContainText(
-    "temporarily unavailable",
-  );
+  await page.getByRole("button", { name: "Prepare your email" }).click();
+  const email = page.getByRole("link", { name: "Open email app" });
+  await expect(email).toBeVisible();
+  const href = await email.getAttribute("href");
+  expect(href).toContain("mailto:Pavan.Mudunuri@unimem.org");
+  expect(decodeURIComponent(href!)).toContain("Repeated decisions");
+  expect(submissions).toEqual([]);
   await expect(page.locator("#email")).toHaveValue("test@example.com");
   await expect(
-    page.getByRole("button", { name: "Start a conversation" }),
+    page.getByRole("button", { name: "Prepare your email" }),
   ).toBeEnabled();
 });
 test("robots, sitemap, share image, manifest, security headers and 404", async ({

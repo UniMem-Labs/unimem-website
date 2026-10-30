@@ -16,37 +16,37 @@ const stages = [
   {
     name: "Observe",
     title: "Connect memory to what happened.",
-    text: "Your workflow reports the final outcome for every task—including failures and escalations.",
+    text: "The local demo records 1,000 simulated ticket outcomes. Your own workflow reports its real outcomes, including failures.",
   },
   {
     name: "Evaluate",
     title: "Keep uncertainty in the picture.",
-    text: "Check trial integrity, then compare outcomes. Underpowered means the evidence cannot answer yet.",
+    text: "The demo’s integrity audit is SOUND. Compare shown and withheld outcomes; a small estimate alone does not prove an effect.",
   },
   {
     name: "Govern",
     title: "Change what stays in use.",
-    text: "A configured policy can withdraw harmful guidance. Promotion and rollback follow a separate review path.",
+    text: "The demo withdraws the harmful memory and graduates the helpful one. Unresolved memories remain under test.",
   },
 ];
 const memories = [
   {
-    id: "retry-429",
-    text: "Back off on rate limits",
+    id: "verify-owner",
+    text: "Verify the account owner",
     verdict: "HELPS",
     tone: "helps",
   },
   {
-    id: "legacy-endpoint",
-    text: "Use the old API endpoint",
-    verdict: "HURTS",
-    tone: "hurts",
+    id: "retry-429",
+    text: "Back off on rate limits",
+    verdict: "NO MEASURABLE EFFECT",
+    tone: "uncertain",
   },
   {
-    id: "cache-hint",
-    text: "Reuse cached responses",
-    verdict: "UNDERPOWERED",
-    tone: "uncertain",
+    id: "legacy-refund-api",
+    text: "Use the legacy refund API",
+    verdict: "HURTS",
+    tone: "hurts",
   },
 ];
 export function MemoryDemo() {
@@ -61,7 +61,7 @@ export function MemoryDemo() {
           <i className="status-dot" />
           THE MEMORY LOOP
         </span>
-        <span className="lab-example">Illustrative example</span>
+        <span className="lab-example">Local demo · simulated agent</span>
       </div>
       <div className="lab-canvas">
         <div className="lab-task">
@@ -70,22 +70,24 @@ export function MemoryDemo() {
           </span>
           <div>
             <span className="lab-label">THE NEXT TASK</span>
-            <span>Complete an API request</span>
+            <span>Resolve a support ticket</span>
           </div>
           <span className="lab-task-count">3 memories</span>
         </div>
         <div className="lab-memories">
           {memories.map((memory, index) => {
-            const withdrawn = step === 4 && index === 1;
+            const withdrawn = step === 4 && index === 2;
             const status = withdrawn
               ? "WITHDRAWN"
-              : step >= 3
-                ? memory.verdict
-                : step === 2
-                  ? "RECORDED"
-                  : step === 1
-                    ? "IN TRIAL"
-                    : "ELIGIBLE";
+              : step === 4 && index === 0
+                ? "GRADUATED"
+                : step >= 3
+                  ? memory.verdict
+                  : step === 2
+                    ? "RECORDED"
+                    : step === 1
+                      ? "IN TRIAL"
+                      : "ELIGIBLE";
             return (
               <div
                 className={`lab-memory ${step >= 3 ? memory.tone : ""} ${withdrawn ? "is-withdrawn" : ""}`}
@@ -159,9 +161,9 @@ export function MemoryDemo() {
       </div>
       <div className="lab-bottom">
         <p>
-          Simulated outcomes.
+          Replays the offline product demo.
           <br />
-          No customer or benchmark data.
+          Simulated outcomes. Real evidence engine.
         </p>
         <button
           type="button"

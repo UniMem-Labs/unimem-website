@@ -1,9 +1,10 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import { event } from "./analytics";
+import { REPO } from "@/lib/site";
 export const examples = {
-  CLI: `# From the cloned product repository\npython -m pip install -e .\n\nunimem init --dest ./mem\nunimem fact add "Use exponential backoff on 429." --dest ./mem\nunimem recall "How should we handle rate limits?" --dest ./mem`,
-  Python: `from unimem.measure import CausalMemory\n\n# retrieve returns memories with stable id and text fields.\nmemory = CausalMemory(retrieve, root="./mem")\nshown = memory.recall(\n    "Handle a rate limit", occasion_id="task-1042"\n)\n# Run your agent using only the returned memories.\nmemory.record_outcome("task-1042", succeeded=True)`,
+  CLI: `git clone ${REPO}.git\ncd unimem\npython -m pip install -e .\n\nunimem init --dest ./mem\nunimem fact add "Use exponential backoff on 429." --dest ./mem\nunimem recall "How should we handle rate limits?" --dest ./mem`,
+  Python: `from unimem.measure import CausalMemory\n\n# First configure an experiment with the CLI.\ncandidates = [\n    {"id": "retry-429", "text": "Back off on 429."}\n]\nmemory = CausalMemory(\n    lambda task, **_: candidates, root="./mem"\n)\nshown = memory.recall(\n    "Handle a rate limit", occasion_id="task-1042"\n)\n# Run your agent using only the returned memories.\nmemory.record_outcome("task-1042", succeeded=True)`,
   MCP: `# Install the optional MCP dependency first.\npython -m pip install -e '.[serve]'\n\n# Connect a client to this stdio server.\nunimem serve --transport stdio --dest ./mem\n\n# Or write a supported coding-agent configuration.\nunimem install --target claude-code`,
   HTTP: `# Start with: unimem up --dest ./mem\n# Use the private gateway token shown at startup.\ncurl http://localhost:8787/v1/recall \\\n  -H "Authorization: Bearer $UNIMEM_TOKEN" \\\n  -H 'Content-Type: application/json' \\\n  -d '{"occasion_id":"task-1042","items":[\n    {"id":"retry-429","text":"Back off on 429."}\n  ]}'`,
 };
