@@ -1,25 +1,26 @@
 {
-  "url": "http://127.0.0.1:3001/",
+  "url": "http://127.0.0.1:3100/",
+  "fetchTime": "2026-10-31T01:39:52.294Z",
   "lighthouseVersion": "13.5.0",
   "formFactor": "mobile",
   "throttlingMethod": "simulate",
   "scores": {
-    "performance": 97,
+    "performance": 96,
     "accessibility": 100,
     "best-practices": 100,
-    "seo": 100
+    "seo": 92
   },
   "metrics": {
     "first-contentful-paint": {
-      "value": 911.7555,
+      "value": 940.2872,
       "unit": "millisecond"
     },
     "largest-contentful-paint": {
-      "value": 2432.7555,
+      "value": 2622.5744000000004,
       "unit": "millisecond"
     },
     "total-blocking-time": {
-      "value": 116.62225000000012,
+      "value": 70.3563999999999,
       "unit": "millisecond"
     },
     "cumulative-layout-shift": {
@@ -27,5 +28,11 @@
       "unit": "unitless"
     }
   },
-  "scope": "Single local production-build mobile lab run; not field Core Web Vitals or an INP guarantee."
+  "seoDiagnostic": {
+    "fetchTime": "2026-10-31T01:40:55.069Z",
+    "score": 100,
+    "reason": "The full run failed to fetch robots.txt. Direct HTTP, Node fetch, and browser requests returned 200 with valid rules; an SEO-only diagnostic passed without an application change.",
+    "robotsTxtScore": 1
+  },
+  "scope": "Final local production-build mobile lab run; not field Core Web Vitals or an INP guarantee. The SEO diagnostic is separate from the full-category run."
 }

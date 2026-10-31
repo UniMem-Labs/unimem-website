@@ -57,19 +57,27 @@ export function MemoryDemo() {
       aria-label="Illustrative memory evaluation loop"
     >
       <div className="lab-heading">
-        <span>
-          <i className="status-dot" />
-          THE MEMORY LOOP
-        </span>
+        <span>Memory loop</span>
         <span className="lab-example">Local demo · simulated agent</span>
       </div>
       <div className="lab-canvas">
         <div className="lab-task">
           <span className="lab-task-icon" aria-hidden="true">
-            ↗
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.5"
+            >
+              <circle cx="12" cy="12" r="7" />
+              <circle cx="12" cy="12" r="2" />
+              <path d="M12 2v3m0 14v3M2 12h3m14 0h3" />
+            </svg>
           </span>
           <div>
-            <span className="lab-label">THE NEXT TASK</span>
+            <span className="lab-label">Next task</span>
             <span>Resolve a support ticket</span>
           </div>
           <span className="lab-task-count">3 memories</span>
@@ -93,9 +101,7 @@ export function MemoryDemo() {
                 className={`lab-memory ${step >= 3 ? memory.tone : ""} ${withdrawn ? "is-withdrawn" : ""}`}
                 key={memory.id}
               >
-                <span className="lab-number" aria-hidden="true">
-                  0{index + 1}
-                </span>
+                <span className="lab-memory-dot" aria-hidden="true" />
                 <div className="lab-memory-copy">
                   <span className="lab-memory-id">{memory.id}</span>
                   <span className="lab-memory-text">{memory.text}</span>
@@ -128,9 +134,7 @@ export function MemoryDemo() {
             <i />
             Withheld
           </span>
-          <span className="lab-feedback">
-            ↵ Outcomes inform the next recall
-          </span>
+          <span className="lab-feedback">Outcomes inform the next recall</span>
         </div>
       </div>
       <div className="lab-stages" role="group" aria-label="Explore stages">

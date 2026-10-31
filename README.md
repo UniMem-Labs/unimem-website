@@ -1,6 +1,6 @@
 # UniMem website
 
-The marketing website for UniMem: memory infrastructure for AI agents and robots. Built with Next.js App Router, React, TypeScript, and a self-hosted Geist font.
+The marketing website for UniMem: memory infrastructure for AI agents and robots. Built with Next.js App Router, React, TypeScript, and a self-hosted IBM Plex Sans font.
 
 Live: **https://getunimem.vercel.app**. The canonical `unimem.org` domain needs the external DNS changes documented in [domain-handoff.md](docs/domain-handoff.md).
 
@@ -32,6 +32,21 @@ npx playwright install chromium
 npm run test:e2e
 ```
 
+## Installed website skills
+
+Anthropic's [frontend-design](.agents/skills/frontend-design/SKILL.md) and [webapp-testing](.agents/skills/webapp-testing/SKILL.md) skills are installed locally in `.agents/skills` and referenced by `AGENTS.md`. Their upstream revision, licenses, and file hashes are pinned in the lock manifest. See [installation and design notes](docs/anthropic-skills.md).
+
+The additional Python browser review uses the installed skill's server helper:
+
+```bash
+python -m pip install playwright
+python -m playwright install chromium
+npm run build
+npm run review:browser
+```
+
+It captures screenshots and checks the main interactions at four widths, writing results to the ignored `artifacts/skill-review` directory. Set `CHROME_PATH` to use an existing Chromium executable. The TypeScript browser suite remains the CI gate.
+
 ## Project structure
 
 - `src/app`: pages, metadata, shared styles, and the contact API.
@@ -39,6 +54,8 @@ npm run test:e2e
 - `src/lib`: content, site configuration, and contact validation.
 - `public`: self-hosted font with its required license, plus security contact information.
 - `tests`: contact boundary tests and browser/accessibility checks.
+- `.agents/skills`: pinned Anthropic skills and their upstream licenses.
+- `scripts`: the additional Python browser review.
 - `docs`: deployment instructions and the source claim map.
 
 ## Deploy

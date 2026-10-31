@@ -1,6 +1,6 @@
 # Connect the canonical UniMem domain
 
-The website is live at **https://getunimem.vercel.app** in the existing UniMem Vercel project `getunimem`. Production application commit: `6c508436bd4c16d2db82e64e2e9760ba7be815e7`. GitHub CI for that commit passed.
+The website is live at **https://getunimem.vercel.app** in the existing UniMem Vercel project `getunimem`, connected to [UniMem-Labs/unimem-website](https://github.com/UniMem-Labs/unimem-website). Production releases track the repository's `main` branch.
 
 `unimem.org` and `www.unimem.org` are attached to that project and ownership-verified, but Vercel reports both as **misconfigured**. Ownership verification does not establish that public DNS reaches the deployment.
 
@@ -25,7 +25,7 @@ At the provider that manages that DNS zone, replace the existing web records wit
 
 Add both recommended apex A values. Replace the old apex web address and the Zoho Sites `www` CNAME. Preserve MX and email-related TXT records, including SPF, DKIM, and DMARC. No nameserver transfer or full-zone replacement is needed.
 
-These values came from the connected Vercel project’s live domain configuration check on 2026-10-30. Recheck the domain panel if applying them substantially later rather than assuming the recommendation is permanent.
+These values came from the connected Vercel project’s live domain configuration check on 2026-10-31. Recheck the domain panel if applying them substantially later rather than assuming the recommendation is permanent.
 
 ## Verify after the update
 

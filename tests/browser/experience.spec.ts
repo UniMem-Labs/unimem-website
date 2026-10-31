@@ -88,6 +88,10 @@ test("search supports keyboard navigation, no-result recovery, and focus return"
   ).toEqual([]);
   await input.fill("zznomatchxyz");
   await expect(dialog.getByText("No pages found.")).toBeVisible();
+  await input.press("Escape");
+  await expect(dialog).not.toBeVisible();
+  await page.keyboard.press("Control+k");
+  await expect(dialog).toBeVisible();
   await input.fill("benchmarks");
   await input.press("ArrowDown");
   await expect(dialog.locator(".search-result").first()).toBeFocused();
@@ -102,6 +106,15 @@ test("search supports keyboard navigation, no-result recovery, and focus return"
   await dialog.getByRole("link", { name: /Developers · quickstart/ }).click();
   await expect(page).toHaveURL(/\/developers$/);
   await expect(dialog).not.toBeVisible();
+  await page.setViewportSize({ width: 390, height: 900 });
+  await page.getByRole("button", { name: "Menu: open navigation" }).click();
+  await page.getByRole("button", { name: "Search UniMem" }).click();
+  await input.fill("memory");
+  await input.press("Escape");
+  await expect(dialog).not.toBeVisible();
+  await expect(page.locator(".mobile-nav")).toBeVisible();
+  await page.keyboard.press("Escape");
+  await expect(page.locator(".mobile-nav")).not.toBeVisible();
 });
 
 test("quickstart switches OS and client commands, copying the real source path", async ({

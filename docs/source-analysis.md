@@ -42,7 +42,7 @@ The interactive chart uses the published retrieval table: LoCoMo 82.3% → 95.0%
 
 ## Design decisions
 
-- Retain the existing forest-green, warm-white, and lime direction, self-hosted type, and editorial hierarchy.
+- Preserve UniMem's forest-green identity and editorial hierarchy. The skill-driven refinement uses a light paper field, sea-glass active states, self-hosted IBM Plex Sans, and SVG icons; see [the design plan](anthropic-skills.md).
 - Put a useful product interaction in place of a static six-card catalog. Keep the two temporal clocks visible.
 - Prefer developer and evidence routes in primary navigation. Vision and investor material remain available in the footer and dedicated pages.
 - Make OS activation and client targets explicit. Copy the complete commands without line-number or display artifacts.

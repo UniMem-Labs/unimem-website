@@ -45,7 +45,7 @@ export function TableOfContents({ items }: { items: Item[] }) {
         <span className="toc-label">ON THIS PAGE</span>
         {links}
         <Link className="toc-bottom" href="/contact">
-          Discuss your workflow ↗
+          Discuss your workflow
         </Link>
       </nav>
       <details className="toc-mobile" ref={details}>

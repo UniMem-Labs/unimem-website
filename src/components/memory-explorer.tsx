@@ -1,12 +1,14 @@
 "use client";
 
 import { useId, useState } from "react";
+import { MemoryGlyph } from "./icons";
 
 const kinds = [
   {
     name: "Facts",
+    symbol: "fact",
     subtitle: "What was true. And when.",
-    type: "BITEMPORAL FACT",
+    type: "Bitemporal fact",
     title: "The right answer changes with time.",
     description:
       "Valid time records when a fact was true. Record time captures when your store learned it. Keep both, and a correction doesn’t have to erase history.",
@@ -15,8 +17,9 @@ const kinds = [
   },
   {
     name: "Lessons",
+    symbol: "lesson",
     subtitle: "Experience worth carrying forward.",
-    type: "REVIEWED LESSON",
+    type: "Reviewed lesson",
     title: "A lesson earns its place.",
     description:
       "Capture reusable guidance from experience. Bind review to the exact revision, measure its effect, and withdraw it when the evidence changes.",
@@ -25,8 +28,9 @@ const kinds = [
   },
   {
     name: "Knowledge graph",
+    symbol: "graph",
     subtitle: "The connections between the facts.",
-    type: "TYPED RELATIONSHIPS",
+    type: "Typed relationships",
     title: "Recall the relationship, too.",
     description:
       "Follow entities and relations across multiple hops. Validity windows and caller scope apply along the path, including intermediate facts.",
@@ -35,8 +39,9 @@ const kinds = [
   },
   {
     name: "Conversations",
+    symbol: "conversation",
     subtitle: "Continuity beyond a single session.",
-    type: "CONVERSATION MEMORY",
+    type: "Conversation memory",
     title: "Pick up where the work left off.",
     description:
       "Keep conversations in their own spaces. Recall relevant history, summaries, and preferences within a token budget, instead of replaying everything.",
@@ -45,8 +50,9 @@ const kinds = [
   },
   {
     name: "Core blocks",
+    symbol: "block",
     subtitle: "The context that stays close.",
-    type: "CORE MEMORY BLOCK",
+    type: "Core memory block",
     title: "Some context belongs up front.",
     description:
       "Maintain bounded memory blocks for persistent agent context. Revisions and an audit log make changes inspectable.",
@@ -55,8 +61,9 @@ const kinds = [
   },
   {
     name: "Procedures",
+    symbol: "procedure",
     subtitle: "A way to remember how.",
-    type: "PROCEDURAL MEMORY",
+    type: "Procedural memory",
     title: "Carry a workflow into the next task.",
     description:
       "Record procedures your agent can replay, alongside curated knowledge pages and ordered incident narratives. Your application controls execution.",
@@ -83,12 +90,12 @@ function Graph() {
             refY="3"
             orient="auto"
           >
-            <path d="M0 0 6 3 0 6" fill="#b7d888" />
+            <path d="M0 0 6 3 0 6" fill="#a7d0bc" />
           </marker>
         </defs>
         <path
           d="M145 91H211M332 91H383"
-          stroke="#b7d888"
+          stroke="#a7d0bc"
           strokeWidth="1.5"
           markerEnd="url(#graph-arrow)"
         />
@@ -101,9 +108,9 @@ function Graph() {
           </text>
         </g>
         {[
-          { x: 10, w: 135, name: "Project Alpha", type: "PROJECT" },
-          { x: 218, w: 111, name: "Payments", type: "SERVICE" },
-          { x: 389, w: 105, name: "API v2", type: "ENDPOINT" },
+          { x: 10, w: 135, name: "Project Alpha", type: "Project" },
+          { x: 218, w: 111, name: "Payments", type: "Service" },
+          { x: 389, w: 105, name: "API v2", type: "Endpoint" },
         ].map((n) => (
           <g key={n.name}>
             <rect
@@ -113,12 +120,12 @@ function Graph() {
               height="77"
               rx="3"
               stroke="#5b7260"
-              fill="#22372b"
+              fill="#235443"
             />
             <text
               x={n.x + 12}
               y="77"
-              fill="#b7d888"
+              fill="#a7d0bc"
               fontSize="9"
               fontFamily="monospace"
             >
@@ -136,17 +143,17 @@ function Graph() {
         aria-label="Project Alpha uses the payments service, which implements refunds API v2."
       >
         <div aria-hidden="true">
-          <span>PROJECT</span>
+          <span>Project</span>
           <strong>Project Alpha</strong>
         </div>
         <p aria-hidden="true">uses ↓</p>
         <div aria-hidden="true">
-          <span>SERVICE</span>
+          <span>Service</span>
           <strong>Payments</strong>
         </div>
         <p aria-hidden="true">calls ↓</p>
         <div aria-hidden="true">
-          <span>ENDPOINT</span>
+          <span>Endpoint</span>
           <strong>API v2</strong>
         </div>
       </div>
@@ -175,13 +182,12 @@ export function MemoryExplorer({ headingLevel = 3 }: { headingLevel?: 2 | 3 }) {
             aria-controls={id}
             onClick={() => setSelected(i)}
           >
-            <span className="explorer-number">0{i + 1}</span>
+            <span className="explorer-glyph">
+              <MemoryGlyph kind={item.symbol} />
+            </span>
             <span>
               <strong>{item.name}</strong>
               <small>{item.subtitle}</small>
-            </span>
-            <span className="explorer-arrow" aria-hidden="true">
-              ↗
             </span>
           </button>
         ))}
@@ -193,10 +199,8 @@ export function MemoryExplorer({ headingLevel = 3 }: { headingLevel?: 2 | 3 }) {
         aria-atomic="true"
       >
         <div className="explorer-toolbar">
-          <span>
-            <i className="status-dot" /> PROJECT ALPHA
-          </span>
-          <span>ILLUSTRATIVE STORE</span>
+          <span>Project Alpha</span>
+          <span>Illustrative store</span>
         </div>
         <div className="explorer-content" key={kind.name}>
           <span className="eyebrow">{kind.type}</span>
@@ -205,7 +209,6 @@ export function MemoryExplorer({ headingLevel = 3 }: { headingLevel?: 2 | 3 }) {
           <div className="explorer-record">
             <div className="explorer-record-head">
               <span>{kind.file}</span>
-              <span aria-hidden="true">↗</span>
             </div>
             {selected === 0 ? (
               <>
@@ -237,11 +240,11 @@ export function MemoryExplorer({ headingLevel = 3 }: { headingLevel?: 2 | 3 }) {
                 </p>
                 <dl className="record-meta">
                   <div>
-                    <dt>VALID FROM</dt>
+                    <dt>Valid from</dt>
                     <dd>{past ? "Jan 1, 2026" : "Jan 10, 2026"}</dd>
                   </div>
                   <div>
-                    <dt>RECORDED</dt>
+                    <dt>Recorded</dt>
                     <dd>{past ? "Jan 1, 2026" : "Jan 12, 2026"}</dd>
                   </div>
                 </dl>
@@ -253,11 +256,11 @@ export function MemoryExplorer({ headingLevel = 3 }: { headingLevel?: 2 | 3 }) {
                 </p>
                 <dl className="record-meta">
                   <div>
-                    <dt>REVIEW</dt>
+                    <dt>Review</dt>
                     <dd>Bound to revision 01</dd>
                   </div>
                   <div>
-                    <dt>LIFECYCLE</dt>
+                    <dt>Lifecycle</dt>
                     <dd>Review → trial → evidence</dd>
                   </div>
                 </dl>
@@ -267,11 +270,10 @@ export function MemoryExplorer({ headingLevel = 3 }: { headingLevel?: 2 | 3 }) {
             ) : selected === 3 ? (
               <div className="record-conversation">
                 <p>
-                  <span>YESTERDAY · YOU</span>We’re moving refunds to the v2
-                  API.
+                  <span>Yesterday</span>We’re moving refunds to the v2 API.
                 </p>
                 <p>
-                  <span>TODAY · RECALL</span>The migration decision is available
+                  <span>Recalled today</span>The migration decision is available
                   in the next session.
                 </p>
               </div>
@@ -288,11 +290,11 @@ export function MemoryExplorer({ headingLevel = 3 }: { headingLevel?: 2 | 3 }) {
                 </p>
                 <dl className="record-meta">
                   <div>
-                    <dt>BLOCK</dt>
+                    <dt>Block</dt>
                     <dd>project-context</dd>
                   </div>
                   <div>
-                    <dt>REVISION</dt>
+                    <dt>Revision</dt>
                     <dd>03 · audit recorded</dd>
                   </div>
                 </dl>
@@ -306,8 +308,7 @@ export function MemoryExplorer({ headingLevel = 3 }: { headingLevel?: 2 | 3 }) {
             )}
           </div>
           <div className="explorer-source">
-            <span>↳ {kind.source}</span>
-            <span>0{selected + 1} / 06</span>
+            <span>{kind.source}</span>
           </div>
         </div>
       </div>

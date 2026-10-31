@@ -1,0 +1,16 @@
+{
+  "base_url": "http://127.0.0.1:3100",
+  "viewports": [1440, 768, 390, 320],
+  "checks": [
+    "memory lifecycle",
+    "historical fact recall",
+    "mobile graph",
+    "OS and client instructions",
+    "keyboard search",
+    "benchmark scope",
+    "contact draft without submission",
+    "horizontal layout"
+  ],
+  "errors": [],
+  "ok": true
+}

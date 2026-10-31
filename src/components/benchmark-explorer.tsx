@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { benchmarkData } from "@/lib/benchmark-data";
 import { SOURCE } from "@/lib/site";
+import { Arrow } from "./icons";
 
 export function BenchmarkExplorer() {
   const [selected, setSelected] = useState(0);
@@ -23,14 +24,13 @@ export function BenchmarkExplorer() {
             onClick={() => setSelected(i)}
           >
             {item.name}
-            <span>0{i + 1}</span>
           </button>
         ))}
       </div>
       <figure id="benchmark-chart" aria-labelledby="benchmark-title">
         <div className="benchmark-overview" aria-live="polite">
           <div>
-            <span className="eyebrow">GOLD EVIDENCE DELIVERED</span>
+            <span className="eyebrow">Gold evidence delivered</span>
             <h2 id="benchmark-title">
               {data.baseline.toFixed(1)}% <span aria-label="to">→</span>{" "}
               {data.improved.toFixed(1)}%
@@ -90,7 +90,7 @@ export function BenchmarkExplorer() {
           Published product measurements · not independently rerun here
         </span>
         <a href={SOURCE + "/docs/memory-benchmarks.md"}>
-          Read the full methodology ↗
+          Read the full methodology <Arrow diagonal />
         </a>
       </div>
     </div>

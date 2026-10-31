@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { CopyCode } from "./code-example";
 import { REPO } from "@/lib/site";
+import { Arrow } from "./icons";
 
 const clients = [
   ["Codex", "codex"],
@@ -26,9 +27,6 @@ export function Quickstart() {
     <section className="quickstart-workbench" aria-labelledby="workbench-title">
       <div className="workbench-heading">
         <div>
-          <span className="eyebrow">
-            <i className="status-dot" /> START LOCAL. SEE IT WORK.
-          </span>
           <h2 id="workbench-title">Your first memory loop.</h2>
           <p>No account. No model. No API key.</p>
         </div>
@@ -83,20 +81,19 @@ export function Quickstart() {
             label="Terminal / offline demonstration"
           />
           <div className="workbench-result">
-            <span className="eyebrow">EXPECTED RESULT</span>
+            <span className="eyebrow">Expected result</span>
             <p>
-              <span>✓</span> Integrity audit: <strong>SOUND</strong>
+              Integrity audit: <strong>SOUND</strong>
               <br />
-              <span>↳</span> A helpful memory graduates.
-              <br />
-              <span>↳</span> A harmful memory is withdrawn.
+              A helpful memory graduates.
+              <br />A harmful memory is withdrawn.
             </p>
           </div>
         </article>
       </div>
       <div className="workbench-connect">
         <div>
-          <span className="eyebrow">03 / CONNECT YOUR AGENT</span>
+          <span className="eyebrow">03 / Connect your agent</span>
           <h3>Bring memory into the work.</h3>
           <p>
             The installer writes a local client configuration. Replace{" "}
@@ -146,7 +143,9 @@ export function Quickstart() {
       <p className="workbench-footnote">
         AGPL-3.0-only · Runs on your machine · Re-running step 02 requires a new
         or removed demo-store directory.{" "}
-        <a href={REPO + "#quickstart"}>Product quickstart ↗</a>
+        <a href={REPO + "#quickstart"}>
+          Product quickstart <Arrow diagonal />
+        </a>
       </p>
     </section>
   );

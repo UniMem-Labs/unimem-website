@@ -11,7 +11,6 @@ export function Footer() {
             UniMem.
           </Link>
           <p>Memory for the next era of intelligence.</p>
-          <span className="eyebrow">UNIFIED MEMORY</span>
         </div>
         <div className="footer-links">
           <div>
@@ -48,9 +47,7 @@ export function Footer() {
       </div>
       <div className="container footer-bottom">
         <span>© {new Date().getFullYear()} UniMem</span>
-        <span className="footer-note">
-          <i className="status-dot" /> Built for the long run.
-        </span>
+        <span className="footer-note">Memory informed by evidence.</span>
         <span>Local first. Evidence led.</span>
       </div>
     </footer>

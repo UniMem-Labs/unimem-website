@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { pages } from "@/lib/content";
 import { metadata as meta } from "@/lib/site";
-import { Arrow } from "@/components/icons";
+import { Arrow, MemoryGlyph } from "@/components/icons";
 export const metadata = meta(
   "Field notes on agent memory",
   "Practical writing on persistent agent memory, context architecture, and evaluating what remembered experience changes.",
@@ -32,7 +32,13 @@ export default function Learn() {
           .map((p, i) => (
             <article className="article-card" key={p.path}>
               <div className="article-card-art" aria-hidden="true">
-                <span>{["↻", "⌑", "±"][i]}</span>
+                <span>
+                  <MemoryGlyph
+                    kind={
+                      i === 0 ? "conversation" : i === 1 ? "block" : "lesson"
+                    }
+                  />
+                </span>
               </div>
               <div className="article-card-body">
                 <span className="eyebrow">

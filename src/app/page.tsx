@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Arrow } from "@/components/icons";
+import { Arrow, MemoryGlyph, WorkflowGlyph } from "@/components/icons";
 import { MemoryDemo } from "@/components/memory-demo";
 import { CodeExample } from "@/components/code-example";
 import { MemoryExplorer } from "@/components/memory-explorer";
@@ -101,20 +101,13 @@ export default function Home() {
       />
       <div className="hero-shell">
         <section className="hero container">
-          <div className="hero-topline">
-            <span className="eyebrow">
-              <i className="status-dot" /> MEMORY FOR AGENTS AND ROBOTS
-            </span>
-            <span className="hero-index">BUILT FOR WHAT COMES NEXT</span>
-          </div>
           <div className="hero-grid">
             <div className="hero-copy">
+              <p className="hero-subject">Memory for AI agents and robots</p>
               <h1>
                 <span className="hero-line">Intelligence</span>{" "}
                 <span className="hero-line">needs a</span>{" "}
-                <span className="hero-line">
-                  <span className="accent-word">memory.</span>
-                </span>
+                <span className="hero-line">memory.</span>
               </h1>
               <p>
                 Give agents and robots a memory that lasts. Recall the right
@@ -123,58 +116,38 @@ export default function Home() {
               </p>
               <div className="hero-actions">
                 <Link href="/developers#start" className="button">
-                  Build with UniMem <Arrow />
+                  Try UniMem locally
                 </Link>
                 <Link href="/platform" className="text-link">
-                  Explore the platform <Arrow />
+                  Explore the platform
                 </Link>
               </div>
               <div className="hero-footnote">
-                <span>Local-first</span>
-                <i />
-                <span>Open source</span>
-                <i />
-                <span>MCP · HTTP · Python · ROS 2</span>
+                <span>No account or API key needed for the local demo.</span>
               </div>
             </div>
             <div className="hero-visual">
-              <div className="visual-label">
-                <span>EXPERIENCE → EVIDENCE</span>
-                <span>[ INTERACTIVE ]</span>
-              </div>
               <MemoryDemo />
             </div>
-          </div>
-          <div className="hero-bottom">
-            <span>PERSISTENT EXPERIENCE. MEASURABLE PROGRESS.</span>
-            <a href="#why-memory" className="scroll-link">
-              A better memory loop <span>↓</span>
-            </a>
           </div>
         </section>
       </div>
       <section className="integration-band">
         <div className="container">
-          <span className="eyebrow">
-            MEET YOUR AGENT
-            <br />
-            WHERE IT WORKS
-          </span>
+          <span className="eyebrow">Connect your agent</span>
           <div className="integration-names">
             <Link href="/developers#start">Claude Code</Link>
             <Link href="/developers#start">Cursor</Link>
             <Link href="/developers#start">Codex</Link>
             <Link href="/developers#start">Windsurf</Link>
-            <Link href="/developers#start">
-              Any MCP client <span aria-hidden="true">↗</span>
-            </Link>
+            <Link href="/developers#start">Any MCP client</Link>
           </div>
         </div>
       </section>
       <section className="proof-band" aria-label="Measured results">
         <div className="container proof-inner">
           <div className="proof-intro">
-            <span className="eyebrow">EVIDENCE YOU CAN INSPECT</span>
+            <span className="eyebrow">Evidence you can inspect</span>
             <p>
               Published retrieval results on LoCoMo, LongMemEval-S, and BEAM
               100K. Baselines, token costs, and a separate answer-quality sample
@@ -210,7 +183,6 @@ export default function Home() {
         className="container section vision-chapter"
         aria-labelledby="vision-heading"
       >
-        <span className="eyebrow">OUR CONVICTION</span>
         <h2 id="vision-heading">
           Intelligence is a capability.
           <br />
@@ -228,14 +200,14 @@ export default function Home() {
         </div>
         <ol className="vision-horizons">
           <li>
-            <span className="eyebrow">01 / TODAY</span>
+            <span className="eyebrow">Today</span>
             <strong>
               One agent.
               <br />A lasting memory.
             </strong>
           </li>
           <li>
-            <span className="eyebrow">02 / NEXT</span>
+            <span className="eyebrow">Next</span>
             <strong>
               Many agents.
               <br />
@@ -243,7 +215,7 @@ export default function Home() {
             </strong>
           </li>
           <li>
-            <span className="eyebrow">03 / OUR HORIZON</span>
+            <span className="eyebrow">Our horizon</span>
             <strong>
               Intelligent machines.
               <br />A world to learn from.
@@ -253,7 +225,7 @@ export default function Home() {
       </section>
       <section className="container section platform-section" id="platform">
         <div className="section-rail">
-          <span className="eyebrow">01 / A COMPLETE MEMORY SYSTEM</span>
+          <span className="eyebrow">A complete memory system</span>
           <span className="rail-line" />
         </div>
         <div className="section-heading">
@@ -270,7 +242,7 @@ export default function Home() {
         </div>
         <MemoryExplorer />
         <div className="retrieval-strip">
-          <span className="eyebrow">ONE RECALL, ONE TOKEN BUDGET</span>
+          <span className="eyebrow">One recall, one token budget</span>
           <p>
             Hybrid lexical and dense retrieval, ten named retrievers including
             multi-hop graph walks and question decomposition, local or hosted
@@ -284,7 +256,7 @@ export default function Home() {
       </section>
       <section className="container problem-section section" id="why-memory">
         <div className="section-rail">
-          <span className="eyebrow">02 / THE MEMORY PROBLEM</span>
+          <span className="eyebrow">Why memory needs a feedback loop</span>
           <span className="rail-line" />
         </div>
         <div className="problem-grid">
@@ -313,12 +285,12 @@ export default function Home() {
         </div>
         <div className="comparison">
           <div>
-            <span className="eyebrow">RETRIEVAL ASKS</span>
+            <span className="eyebrow">Retrieval asks</span>
             <p>“Is this relevant?”</p>
           </div>
           <div className="comparison-arrow">→</div>
           <div>
-            <span className="eyebrow">UNIMEM ADDS</span>
+            <span className="eyebrow">UniMem adds</span>
             <p>“Did this help?”</p>
           </div>
           <span className="comparison-note">
@@ -330,8 +302,7 @@ export default function Home() {
       <section className="how-section">
         <div className="container section">
           <div className="section-rail">
-            <span className="eyebrow">03 / HOW IT WORKS</span>
-            <span className="eyebrow">EXPERIENCE, WITH A FEEDBACK LOOP.</span>
+            <span className="eyebrow">How it works</span>
           </div>
           <div className="how-grid">
             <div>
@@ -350,19 +321,6 @@ export default function Home() {
               <Link href="/product" className="text-link">
                 Inside the memory loop <Arrow />
               </Link>
-              <div className="loop-stamp" aria-hidden="true">
-                <svg viewBox="0 0 160 140">
-                  <path d="M35 40a50 50 0 1 1-5 58M35 40v30H5" />
-                  <circle cx="80" cy="70" r="8" />
-                </svg>
-                <span>
-                  RECALL
-                  <br />
-                  OBSERVE
-                  <br />
-                  REFINE
-                </span>
-              </div>
             </div>
             <div className="loop-steps">
               {loop.map(([title, text], i) => (
@@ -372,9 +330,6 @@ export default function Home() {
                     <h3>{title}</h3>
                     <p>{text}</p>
                   </div>
-                  <span className="step-symbol" aria-hidden="true">
-                    {["↗", "±", "↺"][i]}
-                  </span>
                 </article>
               ))}
               <p className="small-note">
@@ -388,7 +343,7 @@ export default function Home() {
       </section>
       <section className="container section demo-section" id="demo">
         <div className="demo-copy">
-          <span className="eyebrow">04 / SEE IT IN 30 SECONDS</span>
+          <span className="eyebrow">Run the offline demo</span>
           <h2>
             Remember.
             <br />
@@ -407,7 +362,7 @@ export default function Home() {
         </div>
         <figure className="terminal">
           <div className="code-bar">
-            <span>TERMINAL · REAL OUTPUT, ABRIDGED</span>
+            <span>Terminal / abridged product output</span>
             <span>unimem demo</span>
           </div>
           <pre tabIndex={0} aria-label="Output of the unimem demo command">
@@ -421,7 +376,7 @@ export default function Home() {
       </section>
       <section className="container section developer-section">
         <div className="developer-copy">
-          <span className="eyebrow">05 / MADE TO BE USED</span>
+          <span className="eyebrow">Build with your own stack</span>
           <h2>
             Your agent.
             <br />
@@ -444,7 +399,7 @@ export default function Home() {
       </section>
       <section className="container section usecases-section">
         <div className="section-rail">
-          <span className="eyebrow">06 / FROM AGENTS TO ROBOTS</span>
+          <span className="eyebrow">From agents to robots</span>
           <span className="rail-line" />
         </div>
         <div className="section-heading">
@@ -463,9 +418,11 @@ export default function Home() {
           {horizon.map(([title, text, href], i) => (
             <Link href={href} key={title} className="usecase-row">
               <span className="usecase-symbol" aria-hidden="true">
-                {["{ }", "⊞", "↗↙", "◎"][i]}
+                <WorkflowGlyph
+                  kind={(["coding", "enterprise", "team", "robot"] as const)[i]}
+                />
               </span>
-              <span className="eyebrow">0{i + 1}</span>
+
               <h3>{title}</h3>
               <p>{text}</p>
               <Arrow diagonal />
@@ -477,7 +434,7 @@ export default function Home() {
         <div className="container section">
           <div className="section-heading">
             <div>
-              <span className="eyebrow">07 / CONTROL IS PART OF MEMORY</span>
+              <span className="eyebrow">Keep control of your memory</span>
               <h2>
                 A memory layer.
                 <br />
@@ -491,7 +448,7 @@ export default function Home() {
           <div className="trust-grid">
             <article>
               <span className="trust-icon" aria-hidden="true">
-                ⌘
+                <MemoryGlyph kind="block" />
               </span>
               <h3>Start local. Stay in control.</h3>
               <p>
@@ -501,7 +458,7 @@ export default function Home() {
             </article>
             <article>
               <span className="trust-icon" aria-hidden="true">
-                ⌑
+                <MemoryGlyph kind="graph" />
               </span>
               <h3>Give memory boundaries.</h3>
               <p>
@@ -512,7 +469,7 @@ export default function Home() {
             </article>
             <article>
               <span className="trust-icon" aria-hidden="true">
-                ↶
+                <MemoryGlyph kind="procedure" />
               </span>
               <h3>Make change reviewable.</h3>
               <p>
@@ -530,8 +487,7 @@ export default function Home() {
       <section className="founder-section">
         <div className="container section">
           <div className="section-rail">
-            <span className="eyebrow">BUILDING IN THE OPEN</span>
-            <span className="eyebrow">START WITH ONE REAL WORKFLOW</span>
+            <span className="eyebrow">Build in the open</span>
           </div>
           <div className="founder-grid">
             <h2>

@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { Arrow } from "./icons";
 
 export type SearchItem = { title: string; path: string; description: string };
 
@@ -41,6 +42,12 @@ export function SiteSearch({ items }: { items: SearchItem[] }) {
     return () => document.removeEventListener("keydown", key);
   }, [openDialog]);
   function move(e: React.KeyboardEvent) {
+    if (e.key === "Escape") {
+      e.preventDefault();
+      e.stopPropagation();
+      dialog.current?.close();
+      return;
+    }
     if (e.key !== "ArrowDown" && e.key !== "ArrowUp") return;
     const links = Array.from(
       dialog.current?.querySelectorAll<HTMLAnchorElement>(".search-result") ||
@@ -62,7 +69,7 @@ export function SiteSearch({ items }: { items: SearchItem[] }) {
         aria-label="Search UniMem"
         aria-keyshortcuts="Meta+K Control+K"
         aria-haspopup="dialog"
-        title="Search (⌘ K or Ctrl K)"
+        title="Search (Cmd K or Ctrl K)"
         onClick={() => {
           openDialog();
         }}
@@ -140,7 +147,7 @@ export function SiteSearch({ items }: { items: SearchItem[] }) {
                     <strong>{item.title}</strong>
                     <small>{item.description}</small>
                   </span>
-                  <span aria-hidden="true">↗</span>
+                  <Arrow />
                 </Link>
               ))
             ) : (
@@ -148,7 +155,7 @@ export function SiteSearch({ items }: { items: SearchItem[] }) {
                 <h3>No pages found.</h3>
                 <p>Try a broader term such as memory, agent, or evidence.</p>
                 <Link href="/docs" onClick={() => dialog.current?.close()}>
-                  Browse the documentation →
+                  Browse the documentation
                 </Link>
               </div>
             )}

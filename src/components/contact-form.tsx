@@ -301,7 +301,7 @@ export function ContactForm({
           tabIndex={-1}
           aria-label="Review your inquiry"
         >
-          <span className="eyebrow">READY FOR YOUR REVIEW</span>
+          <span className="eyebrow">Ready for your review</span>
           <h2>A conversation starts here.</h2>
           <p>
             Review the note below. Your email app will open with the recipient

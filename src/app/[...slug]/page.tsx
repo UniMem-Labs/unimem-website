@@ -122,10 +122,6 @@ export default async function Page({
             )}
             <span aria-current="page">{breadcrumb}</span>
           </nav>
-          <span className="eyebrow">
-            <i className="status-dot" />
-            {p.eyebrow}
-          </span>
           <h1>{p.title}</h1>
           <p className="lead">{p.lead}</p>
           {p.legal ? (

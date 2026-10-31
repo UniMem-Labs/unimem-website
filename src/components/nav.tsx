@@ -19,7 +19,7 @@ export function Nav({ searchItems }: { searchItems: SearchItem[] }) {
   useEffect(() => {
     if (!open) return;
     const closeOnEscape = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
+      if (e.key === "Escape" && !e.defaultPrevented) {
         setOpen(false);
         toggle.current?.focus();
       }
@@ -85,7 +85,7 @@ export function Nav({ searchItems }: { searchItems: SearchItem[] }) {
         </nav>
         <SiteSearch items={searchItems} />
         <Link className="button button-small nav-cta" href="/developers#start">
-          Start building <Arrow />
+          Start building
         </Link>
         <button
           ref={toggle}

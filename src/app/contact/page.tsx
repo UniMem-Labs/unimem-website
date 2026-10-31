@@ -23,10 +23,6 @@ export default function Contact() {
           <span>/</span>
           <span aria-current="page">Contact</span>
         </nav>
-        <span className="eyebrow">
-          <i className="status-dot" />
-          LET’S START WITH THE WORKFLOW
-        </span>
         <h1>
           One agent.
           <br />

@@ -8,11 +8,11 @@ import { pages } from "@/lib/content";
 import type { SearchItem } from "@/components/site-search";
 import "./globals.css";
 import "./experience.css";
-const geist = localFont({
-  src: "../../public/fonts/geist.woff2",
-  variable: "--font-geist",
+const plex = localFont({
+  src: "../../public/fonts/ibm-plex-sans-latin.woff2",
+  variable: "--font-plex",
   display: "swap",
-  weight: "100 900",
+  weight: "100 700",
 });
 const searchNames: Record<string, string> = {
   "/developers": "Developers · quickstart & integrations",
@@ -65,7 +65,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={geist.variable}>
+    <html lang="en" className={plex.variable}>
       <body>
         <a href="#main" className="skip-link">
           Skip to content
