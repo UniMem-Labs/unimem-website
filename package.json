@@ -11,7 +11,8 @@
     "test": "node --import tsx --test tests/*.test.ts",
     "test:e2e": "playwright test",
     "format": "prettier --write src tests docs *.ts *.mjs .github/workflows/ci.yml README.md package.json tsconfig.json",
-    "review:browser": "python .agents/skills/webapp-testing/scripts/with_server.py --server \"npm start -- --port 3100\" --port 3100 -- python scripts/inspect_website.py"
+    "review:browser": "python .agents/skills/webapp-testing/scripts/with_server.py --server \"npm start -- --port 3100\" --port 3100 -- python scripts/inspect_website.py",
+    "audit:layout": "python .agents/skills/webapp-testing/scripts/with_server.py --server \"npm start -- --port 3100\" --port 3100 -- python scripts/audit_layout.py"
   },
   "dependencies": {
     "@vercel/analytics": "^1.5.0",

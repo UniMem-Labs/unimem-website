@@ -3,6 +3,49 @@ import { test, expect } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 import { pages } from "../../src/lib/content";
 const paths = ["/", "/learn", "/contact", ...pages.map((p) => p.path)];
+test("evidence footnotes stay inside their columns and client names use consistent type", async ({
+  page,
+}) => {
+  await page.goto("/");
+  await page.evaluate(() => document.fonts.ready);
+  for (const width of [320, 768, 901, 1024, 1130, 1280, 1440, 1536, 1920]) {
+    await page.setViewportSize({ width, height: 900 });
+    const measurements = await page
+      .locator(".proof-stats small")
+      .evaluateAll((elements) =>
+        elements.map((el) => {
+          const bounds = el.getBoundingClientRect();
+          const range = document.createRange();
+          range.selectNodeContents(el);
+          return {
+            text: el.textContent,
+            scrollWidth: el.scrollWidth,
+            width: el.clientWidth,
+            contained: Array.from(range.getClientRects()).every(
+              (r) => r.left >= bounds.left - 1 && r.right <= bounds.right + 1,
+            ),
+          };
+        }),
+      );
+    for (const result of measurements) {
+      expect(result.contained, `${width}px: ${result.text}`).toBe(true);
+      expect(
+        result.scrollWidth,
+        `${width}px: ${result.text}`,
+      ).toBeLessThanOrEqual(result.width + 1);
+    }
+    if (width > 900) {
+      const tops = await page
+        .locator(".proof-stats dd")
+        .evaluateAll((els) => els.map((el) => el.getBoundingClientRect().top));
+      expect(Math.max(...tops) - Math.min(...tops)).toBeLessThan(1);
+    }
+    const sizes = await page
+      .locator(".integration-names > a")
+      .evaluateAll((els) => els.map((el) => getComputedStyle(el).fontSize));
+    expect(new Set(sizes).size).toBe(1);
+  }
+});
 for (const path of paths) {
   test(`metadata, content, links and accessibility: ${path}`, async ({
     page,

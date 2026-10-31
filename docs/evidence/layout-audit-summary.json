@@ -1,0 +1,36 @@
+{
+  "routes": 21,
+  "viewportWidths": [
+    320, 360, 390, 430, 600, 768, 900, 901, 1024, 1130, 1280, 1440, 1536, 1920
+  ],
+  "initialPageChecks": 294,
+  "interactiveStateChecks": 69,
+  "textContainmentFailures": 0,
+  "horizontalPageOverflow": 0,
+  "brokenImages": 0,
+  "routesChecked": [
+    "/",
+    "/learn",
+    "/contact",
+    "/product",
+    "/developers",
+    "/enterprise",
+    "/use-cases/coding-agents",
+    "/use-cases/multi-agent-systems",
+    "/use-cases/enterprise-agents",
+    "/docs",
+    "/learn/the-agent-memory-problem",
+    "/learn/memory-vs-context",
+    "/learn/evaluating-agent-memory",
+    "/platform",
+    "/physical-ai",
+    "/vision",
+    "/benchmarks",
+    "/investors",
+    "/about",
+    "/privacy",
+    "/terms"
+  ],
+  "intentionalScrollRegions": "Code examples and wide data tables are permitted to scroll within their containers.",
+  "limitations": "Chromium layout measurements and screenshots; not a claim about every browser, device, zoom setting, or assistive technology."
+}

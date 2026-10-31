@@ -4,7 +4,7 @@
 
 The production build, ESLint, and TypeScript checks pass. All six contact boundary/delivery tests pass with provider calls mocked; no live email was sent.
 
-The full browser suite passed all 42 checks across 21 content routes. It covers unique headings and metadata, canonicals, structured data, internal links, accessibility (WCAG 2 A/AA, 2.1 A/AA, 2.2 AA and best practices), seven viewport widths from 320 to 1920 pixels, mobile navigation, keyboard use, reduced motion, clipboard success/failure, and contact-draft validation. See [browser summary](evidence/browser-summary.json).
+The full browser suite passed all 43 checks across 21 content routes. It covers unique headings and metadata, canonicals, structured data, internal links, accessibility (WCAG 2 A/AA, 2.1 A/AA, 2.2 AA and best practices), seven viewport widths from 320 to 1920 pixels, mobile navigation, keyboard use, reduced motion, clipboard success/failure, and contact-draft validation. See [browser summary](evidence/browser-summary.json).
 
 The installed Anthropic testing workflow also passes at four widths (1440, 768, 390, and 320 pixels). It covers memory lifecycle, historical recall, the mobile graph, OS/client instructions, keyboard search, benchmark scope, a local contact draft without a server request, and horizontal layout. See [Python browser summary](evidence/anthropic-browser-summary.json) and [skill installation and use](anthropic-skills.md).
 
@@ -49,3 +49,5 @@ The intended destination is the existing `getunimem` Next.js project in the UniM
 [GitHub CI](https://github.com/UniMem-Labs/unimem-website/actions) runs the build, lint, type, contact, and browser checks on production pushes. The public Vercel alias serves the production build. The canonical domain and www redirect are verified; see [domain-handoff.md](domain-handoff.md).
 
 The production-readiness update replaces starter legal copy with notices describing actual website behavior, validates the configured canonical origin, corrects the security-policy URL, and rejects invalid JSON media-type prefixes. Production dependencies have no known vulnerabilities in the saved npm audit. Contact uses the visitor’s email application; automatic delivery remains unconfigured.
+
+The formatting review adds 294 initial page/width checks and 69 interactive-state checks, including local text containment inside columns. See [formatting audit](formatting-audit.md).

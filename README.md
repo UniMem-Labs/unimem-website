@@ -70,4 +70,6 @@ The interactive memory explorer, retrieval benchmark explorer, OS-aware quicksta
 
 See [website QA](docs/qa.md) for browser coverage, local performance results, and visual previews.
 
+Run `npm run audit:layout` against a built app for the additional formatting review. It checks all sitemap routes at 14 widths plus key interaction states, captures screenshots, and detects text crossing internal column boundaries as well as page overflow. See [formatting audit](docs/formatting-audit.md).
+
 Canonical URLs default to `https://unimem.org`. Override `NEXT_PUBLIC_SITE_URL` with another verified HTTPS origin when hosting elsewhere.
