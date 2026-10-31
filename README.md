@@ -2,7 +2,7 @@
 
 The marketing website for UniMem: memory infrastructure for AI agents and robots. Built with Next.js App Router, React, TypeScript, and a self-hosted IBM Plex Sans font.
 
-Live: **https://getunimem.vercel.app**. The canonical `unimem.org` domain needs the external DNS changes documented in [domain-handoff.md](docs/domain-handoff.md).
+Live: **https://unimem.org**. The Vercel alias is https://getunimem.vercel.app. Current domain verification is recorded in [domain-handoff.md](docs/domain-handoff.md).
 
 ## Develop
 
@@ -62,10 +62,12 @@ It captures screenshots and checks the main interactions at four widths, writing
 
 Import `UniMem-Labs/unimem-website` into Vercel. Set the server variables documented in [.env.example](.env.example) for contact delivery. Without them, the contact page prepares an email draft locally for the visitor to review and send through their email app. Analytics are opt-in.
 
-See [deployment instructions](docs/deployment.md) and the [product claim map](docs/product-map.md). Product links and installation examples target the verified source, `varma61923/unimem`. Evidence links are pinned to the reviewed revision. Review benchmark evidence, legal drafts, and production configuration before launch.
+See [deployment instructions](docs/deployment.md) and the [product claim map](docs/product-map.md). Product links and installation examples target the verified source, `varma61923/unimem`. Evidence links are pinned to the reviewed revision. The website notices describe the current email-app contact flow and disabled analytics. Update them before enabling additional data collection.
 
 ## Product refresh
 
 The interactive memory explorer, retrieval benchmark explorer, OS-aware quickstart, and keyboard search use the current product source. See [source analysis](docs/source-analysis.md) for claim boundaries and verification. The contact page prepares a reviewable email locally when delivery credentials are absent; it never claims a message was sent.
 
 See [website QA](docs/qa.md) for browser coverage, local performance results, and visual previews.
+
+Canonical URLs default to `https://unimem.org`. Override `NEXT_PUBLIC_SITE_URL` with another verified HTTPS origin when hosting elsewhere.

@@ -125,10 +125,7 @@ export default async function Page({
           <h1>{p.title}</h1>
           <p className="lead">{p.lead}</p>
           {p.legal ? (
-            <div className="legal-notice">
-              Draft for operator and legal review. This page has not been
-              approved as final legal policy.
-            </div>
+            <div className="legal-notice">Last updated: October 31, 2026.</div>
           ) : p.article ? (
             <div className="article-meta">
               <span>UniMem field notes</span>

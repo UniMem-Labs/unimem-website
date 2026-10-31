@@ -27,12 +27,12 @@ return 1`;
 export async function POST(request: Request) {
   if (!isAllowedOrigin(request.headers.get("origin")))
     return response(403, "Submit this form from the UniMem website.");
-  if (
-    !request.headers
-      .get("content-type")
-      ?.toLowerCase()
-      .startsWith("application/json")
-  )
+  const mediaType = request.headers
+    .get("content-type")
+    ?.split(";", 1)[0]
+    .trim()
+    .toLowerCase();
+  if (mediaType !== "application/json")
     return response(415, "Send the inquiry as JSON.");
   let value: unknown;
   try {

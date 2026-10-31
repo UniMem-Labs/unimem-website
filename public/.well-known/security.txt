@@ -2,4 +2,4 @@ Contact: mailto:Pavan.Mudunuri@unimem.org
 Expires: 2027-10-29T00:00:00.000Z
 Preferred-Languages: en
 Canonical: https://unimem.org/.well-known/security.txt
-Policy: https://github.com/UniMem-Labs/unimem/blob/main/SECURITY.md
+Policy: https://github.com/varma61923/unimem/blob/4b6463ef337e1dabbdd9c095e054a1c494d96533/SECURITY.md

@@ -1,3 +1,4 @@
+import { SITE } from "../src/lib/site";
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { validateInquiry, readBoundedJson } from "../src/lib/contact";
@@ -13,8 +14,8 @@ const body = () => ({
   startedAt: Date.now() - 5000,
   requestId: "12345678-1234-4234-8234-123456789abc",
 });
-function req(data: unknown = body(), origin = "https://unimem.org") {
-  return new Request("https://unimem.org/api/contact", {
+function req(data: unknown = body(), origin = SITE) {
+  return new Request(`${SITE}/api/contact`, {
     method: "POST",
     headers: {
       origin,
@@ -54,7 +55,7 @@ test("bounded body reader checks actual streamed bytes and invalid JSON", async 
   });
   await assert.rejects(
     readBoundedJson(
-      new Request("https://unimem.org", {
+      new Request(SITE, {
         method: "POST",
         body: stream,
         duplex: "half",
@@ -63,9 +64,7 @@ test("bounded body reader checks actual streamed bytes and invalid JSON", async 
     /BODY_TOO_LARGE/,
   );
   await assert.rejects(
-    readBoundedJson(
-      new Request("https://unimem.org", { method: "POST", body: "{" }),
-    ),
+    readBoundedJson(new Request(SITE, { method: "POST", body: "{" })),
   );
 });
 test("contact rejects foreign origins, wrong media types, and invalid fields", async () => {
@@ -73,12 +72,24 @@ test("contact rejects foreign origins, wrong media types, and invalid fields", a
   assert.equal(
     (
       await POST(
-        new Request("https://unimem.org/api/contact", {
+        new Request(`${SITE}/api/contact`, {
           method: "POST",
           headers: {
-            origin: "https://unimem.org",
+            origin: SITE,
             "Content-Type": "text/plain",
           },
+          body: "{}",
+        }),
+      )
+    ).status,
+    415,
+  );
+  assert.equal(
+    (
+      await POST(
+        new Request(`${SITE}/api/contact`, {
+          method: "POST",
+          headers: { origin: SITE, "Content-Type": "application/json-invalid" },
           body: "{}",
         }),
       )

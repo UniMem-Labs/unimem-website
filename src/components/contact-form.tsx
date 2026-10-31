@@ -201,7 +201,6 @@ export function ContactForm({
             required
             autoComplete="name"
             maxLength={100}
-            placeholder="Your name"
             aria-invalid={!!errors.name}
             aria-describedby={errors.name ? "name-error" : undefined}
           />
@@ -216,7 +215,6 @@ export function ContactForm({
             required
             autoComplete="email"
             maxLength={254}
-            placeholder="you@company.com"
             aria-invalid={!!errors.email}
             aria-describedby={errors.email ? "email-error" : undefined}
           />
@@ -231,7 +229,6 @@ export function ContactForm({
           required
           autoComplete="organization"
           maxLength={150}
-          placeholder="Where you’re building"
           aria-invalid={!!errors.company}
           aria-describedby={errors.company ? "company-error" : undefined}
         />
@@ -245,7 +242,6 @@ export function ContactForm({
           required
           maxLength={1500}
           rows={3}
-          placeholder="A coding agent, support workflow, multi-agent system…"
           aria-invalid={!!errors.workflow}
           aria-describedby={errors.workflow ? "workflow-error" : undefined}
         />
@@ -259,7 +255,6 @@ export function ContactForm({
           required
           maxLength={2000}
           rows={3}
-          placeholder="What gets forgotten, repeated, or remembered incorrectly?"
           aria-invalid={!!errors.problem}
           aria-describedby={errors.problem ? "problem-error" : undefined}
         />

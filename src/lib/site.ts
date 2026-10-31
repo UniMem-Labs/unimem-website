@@ -1,5 +1,18 @@
 import type { Metadata } from "next";
-export const SITE = "https://unimem.org";
+const configuredSite = process.env.NEXT_PUBLIC_SITE_URL || "https://unimem.org";
+const siteUrl = new URL(configuredSite);
+if (
+  siteUrl.protocol !== "https:" ||
+  siteUrl.pathname !== "/" ||
+  siteUrl.search ||
+  siteUrl.hash ||
+  siteUrl.username ||
+  siteUrl.password
+)
+  throw new Error(
+    "NEXT_PUBLIC_SITE_URL must be an HTTPS origin without a path or credentials.",
+  );
+export const SITE = siteUrl.origin;
 export const REPO = "https://github.com/varma61923/unimem";
 export const SOURCE_COMMIT = "4b6463ef337e1dabbdd9c095e054a1c494d96533";
 export const SOURCE = `${REPO}/blob/${SOURCE_COMMIT}`;

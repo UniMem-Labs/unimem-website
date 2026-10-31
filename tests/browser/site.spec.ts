@@ -1,3 +1,4 @@
+import { SITE } from "../../src/lib/site";
 import { test, expect } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 import { pages } from "../../src/lib/content";
@@ -19,9 +20,7 @@ for (const path of paths) {
     const canonical = await page
       .locator('link[rel="canonical"]')
       .getAttribute("href");
-    expect(new URL(canonical!).href).toBe(
-      new URL(path, "https://unimem.org").href,
-    );
+    expect(new URL(canonical!).href).toBe(new URL(path, SITE).href);
     expect(
       await page.locator('meta[property="og:image"]').getAttribute("content"),
     ).toContain("/opengraph-image");
@@ -154,7 +153,7 @@ test("robots, sitemap, share image, manifest, security headers and 404", async (
   request,
 }) => {
   const sitemap = await request.get("/sitemap.xml");
-  expect(await sitemap.text()).toContain("https://unimem.org/product");
+  expect(await sitemap.text()).toContain(`${SITE}/product`);
   expect((await request.get("/robots.txt")).status()).toBe(200);
   const image = await request.get("/opengraph-image");
   expect(image.headers()["content-type"]).toContain("image/png");

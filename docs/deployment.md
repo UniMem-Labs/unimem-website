@@ -52,7 +52,7 @@ Reference contracts: [Vercel request headers](https://vercel.com/docs/headers/re
 5. Wait for Vercel DNS verification and HTTPS certificate issuance. Verify apex HTTPS and a `www` deep link, then inspect canonical URLs, sitemap, robots, and share image on production.
 6. Submit `https://unimem.org/sitemap.xml` through the operator’s search-console account after launch. Do not promise indexing or rankings.
 
-The apex and www domains were already attached and verified in the project during this refresh; this task does not replace DNS records. All canonical URLs already use `https://unimem.org`. Vercel deployment protection should keep unreviewed previews private; canonical tags do not replace access control.
+The apex and www domains were already attached and verified in the project during this refresh; this task does not replace DNS records. Canonical URLs use `NEXT_PUBLIC_SITE_URL`, defaulting to the verified `https://unimem.org` origin. Vercel deployment protection should keep unreviewed previews private; canonical tags do not replace access control.
 
 ## Analytics, caching, and security
 
@@ -62,6 +62,10 @@ Analytics is opt-in. Custom event names: `github_click`, `docs_click`, `quicksta
 
 Headers include MIME sniffing prevention, strict-origin referrer policy, frame denial, feature restrictions, HSTS, and a baseline CSP. The CSP permits inline scripts/styles needed by this static Next.js configuration; it is not a nonce-based strict CSP. If adding third-party scripts, review the policy instead of broadly allowing arbitrary origins. Run HTTPS behind Vercel; real infrastructure behavior still needs production verification.
 
-## Current domain status
+## Current production configuration
 
-The production application is publicly available at https://getunimem.vercel.app. The intended canonical domain is attached and ownership-verified, but its authoritative external DNS still routes away from Vercel. Apply the exact current web records in [domain-handoff.md](domain-handoff.md); changing the non-authoritative Vercel DNS zone cannot fix that routing.
+The production domain https://unimem.org and the www deep-link redirect were verified on 2026-10-31. Vercel reports the apex DNS correctly configured. See [domain verification](domain-handoff.md).
+
+`NEXT_PUBLIC_SITE_URL` must be an HTTPS origin without a path, query, fragment, or credentials. It defaults to https://unimem.org. If deliberately changing the public domain, update this setting and the security.txt canonical URL, then redeploy.
+
+The published privacy notice describes the current email-app contact flow and disabled analytics. Review and update it before enabling server delivery or telemetry. The provider-backed endpoint fails closed without its credentials. No email-delivery or analytics credentials were configured during this update.
