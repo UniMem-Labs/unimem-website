@@ -76,6 +76,8 @@ Screenshot review prompted two further adjustments: removing a duplicate heading
 
 The Python workflow also found a real search interaction bug: Escape inside a populated native search input cleared its text before closing the dialog. Search now handles that key explicitly. A regression check verifies that closing search on mobile preserves the underlying menu until a second Escape.
 
+Live resource verification found that the manifest still named `/apple-icon.png`, while Next.js generates `/apple-icon`. That URL is corrected, and the metadata regression test now fetches each declared icon and validates its media type.
+
 All 42 TypeScript browser checks pass. The additional Python workflow passes at 1440, 768, 390, and 320 pixels, including memory lifecycle, historical recall, graph layout, OS/client instructions, search, benchmarks, and preparing a contact draft without an API submission. Results and reviewed screenshots are linked from [website QA](qa.md).
 
 This installs two project-local skills for agents working on the repository. It does not install a global Claude or ChatGPT plugin, and the skills are not shipped as browser runtime dependencies.

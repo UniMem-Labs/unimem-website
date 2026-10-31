@@ -158,7 +158,13 @@ test("robots, sitemap, share image, manifest, security headers and 404", async (
   expect((await request.get("/robots.txt")).status()).toBe(200);
   const image = await request.get("/opengraph-image");
   expect(image.headers()["content-type"]).toContain("image/png");
-  expect((await request.get("/manifest.webmanifest")).status()).toBe(200);
+  const manifest = await request.get("/manifest.webmanifest");
+  expect(manifest.status()).toBe(200);
+  for (const icon of (await manifest.json()).icons) {
+    const resource = await request.get(icon.src);
+    expect(resource.status(), icon.src).toBe(200);
+    expect(resource.headers()["content-type"], icon.src).toContain(icon.type);
+  }
   expect((await request.get("/missing-page")).status()).toBe(404);
   const home = await request.get("/");
   expect(home.headers()["x-frame-options"]).toBe("DENY");

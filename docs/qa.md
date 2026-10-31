@@ -10,6 +10,8 @@ The installed Anthropic testing workflow also passes at four widths (1440, 768, 
 
 The search regression check covers Escape while the search input contains text, focus restoration, and opening search over the mobile menu. The main suite also checks stable geometry/accessibility through all five memory-loop stages.
 
+Production verification also caught a stale `/apple-icon.png` URL in the manifest. It now references the generated `/apple-icon` route. The metadata test fetches every manifest icon and checks its status and media type, preventing that silent 404 from returning.
+
 The contact test confirms preparing a draft makes no `/api/contact` request, preserves input, and creates a correctly addressed mailto link containing the entered inquiry. Sending and inbox receipt remain actions of the visitor’s email client. Server delivery remains conditional on the six documented credentials.
 
 ## Performance lab
